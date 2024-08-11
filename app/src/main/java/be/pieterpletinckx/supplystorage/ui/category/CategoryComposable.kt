@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Datasource
 import be.pieterpletinckx.supplystorage.model.Category
-import com.example.inventory.ui.theme.InventoryTheme
+import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 
 class CategoryComposable : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

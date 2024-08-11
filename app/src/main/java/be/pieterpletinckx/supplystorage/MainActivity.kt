@@ -20,14 +20,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.pieterpletinckx.supplystorage.data.Datasource
 import be.pieterpletinckx.supplystorage.model.ProductDefinition
-import be.pieterpletinckx.supplystorage.ui.theme.SupplyStorageTheme
+import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SupplyStorageTheme {
+            InventoryTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     ProductsApp()
                 }

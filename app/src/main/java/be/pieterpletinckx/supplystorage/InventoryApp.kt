@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory
+package be.pieterpletinckx.supplystorage
 
 import androidx.compose.material.icons.Icons.Filled
 import androidx.compose.material.icons.filled.ArrowBack
@@ -29,8 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.inventory.R.string
-import com.example.inventory.ui.navigation.InventoryNavHost
+import be.pieterpletinckx.supplystorage.R.string
+import be.pieterpletinckx.supplystorage.ui.navigation.InventoryNavHost
 
 /**
  * Top level composable that represents screens for the application.

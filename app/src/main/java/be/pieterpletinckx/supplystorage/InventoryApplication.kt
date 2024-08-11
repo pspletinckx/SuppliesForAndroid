@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory
+package be.pieterpletinckx.supplystorage
 
 import android.app.Application
 import be.pieterpletinckx.supplystorage.data.AppContainer

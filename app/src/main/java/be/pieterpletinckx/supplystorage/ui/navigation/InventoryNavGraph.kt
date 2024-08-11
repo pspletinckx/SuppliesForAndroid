@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.ui.navigation
+package be.pieterpletinckx.supplystorage.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,10 +27,10 @@ import be.pieterpletinckx.supplystorage.ui.home.HomeDestination
 import be.pieterpletinckx.supplystorage.ui.home.HomeScreen
 import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsDestination
 import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsScreen
-import com.example.inventory.ui.item.ItemEditDestination
-import com.example.inventory.ui.item.ItemEditScreen
-import com.example.inventory.ui.item.ItemEntryDestination
-import com.example.inventory.ui.item.ItemEntryScreen
+import be.pieterpletinckx.supplystorage.ui.item.ItemEditDestination
+import be.pieterpletinckx.supplystorage.ui.item.ItemEditScreen
+import be.pieterpletinckx.supplystorage.ui.item.ItemEntryDestination
+import be.pieterpletinckx.supplystorage.ui.item.ItemEntryScreen
 
 /**
  * Provides Navigation graph for the application.

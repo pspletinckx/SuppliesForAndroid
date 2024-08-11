@@ -58,16 +58,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.inventory.InventoryTopAppBar
-import com.example.inventory.R
+import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Item
-import com.example.inventory.ui.AppViewModelProvider
-import com.example.inventory.ui.item.ItemDetailsUiState
-import com.example.inventory.ui.item.ItemDetailsViewModel
-import com.example.inventory.ui.item.formatedPrice
-import com.example.inventory.ui.item.toItem
-import com.example.inventory.ui.navigation.NavigationDestination
-import com.example.inventory.ui.theme.InventoryTheme
+import be.pieterpletinckx.supplystorage.InventoryTopAppBar
+import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
+import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsUiState
+import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsViewModel
+import be.pieterpletinckx.supplystorage.ui.item.formatedPrice
+import be.pieterpletinckx.supplystorage.ui.item.toItem
+import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
+import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 import kotlinx.coroutines.launch
 
 object ItemDetailsDestination : NavigationDestination {
@@ -269,7 +269,7 @@ fun ItemDetailsScreenPreview() {
     InventoryTheme {
         ItemDetailsBody(
             ItemDetailsUiState(
-            outOfStock = true, itemDetails = com.example.inventory.ui.item.ItemDetails(1, "Pen", "$100", "10")
+            outOfStock = true, itemDetails = be.pieterpletinckx.supplystorage.ui.item.ItemDetails(1, "Pen", "$100", "10")
         ), onSellItem = {}, onDelete = {})
     }
 }

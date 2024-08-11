@@ -16,6 +16,7 @@
 
 package be.pieterpletinckx.supplystorage.ui.home
 
+//import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -54,14 +55,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.R
-//import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.data.Item
-import com.example.inventory.InventoryTopAppBar
-import com.example.inventory.ui.AppViewModelProvider
-import com.example.inventory.ui.item.formatedPrice
-import com.example.inventory.ui.navigation.NavigationDestination
-import com.example.inventory.ui.theme.InventoryTheme
+import be.pieterpletinckx.supplystorage.InventoryTopAppBar
+import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
+import be.pieterpletinckx.supplystorage.ui.item.formatedPrice
+import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
+import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 
 object HomeDestination : NavigationDestination {
     override val route = "home"

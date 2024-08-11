@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.ui.item
+package be.pieterpletinckx.supplystorage.ui.item
 
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -30,11 +30,12 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.inventory.InventoryTopAppBar
-import com.example.inventory.R
-import com.example.inventory.ui.AppViewModelProvider
-import com.example.inventory.ui.navigation.NavigationDestination
-import com.example.inventory.ui.theme.InventoryTheme
+import be.pieterpletinckx.supplystorage.InventoryTopAppBar
+import be.pieterpletinckx.supplystorage.R
+import be.pieterpletinckx.supplystorage.ui.item.ItemEntryBody
+import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
+import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
+import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 import kotlinx.coroutines.launch
 
 object ItemEditDestination : NavigationDestination {
