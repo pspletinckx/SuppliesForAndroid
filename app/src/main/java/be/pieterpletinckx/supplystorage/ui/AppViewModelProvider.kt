@@ -27,6 +27,7 @@ import be.pieterpletinckx.supplystorage.ui.home.HomeViewModel
 import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsViewModel
 import be.pieterpletinckx.supplystorage.ui.item.ItemEditViewModel
 import be.pieterpletinckx.supplystorage.ui.item.ItemEntryViewModel
+import be.pieterpletinckx.supplystorage.ui.search.SearchViewModel
 
 /**
  * Provides Factory to create instance of ViewModel for the entire Inventory app
@@ -56,6 +57,10 @@ object AppViewModelProvider {
         // Initializer for HomeViewModel
         initializer {
             HomeViewModel(inventoryApplication().container.itemsRepository)
+        }
+
+        initializer {
+            SearchViewModel(inventoryApplication().container.itemsRepository)
         }
     }
 }

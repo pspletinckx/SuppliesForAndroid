@@ -269,7 +269,8 @@ fun ItemDetailsScreenPreview() {
     InventoryTheme {
         ItemDetailsBody(
             ItemDetailsUiState(
-            outOfStock = true, itemDetails = be.pieterpletinckx.supplystorage.ui.item.ItemDetails(1, "Pen", "$100", "10")
+                outOfStock = true,
+                itemDetails = be.pieterpletinckx.supplystorage.ui.item.ItemDetails(1, "Pen", "$100", "10")
         ), onSellItem = {}, onDelete = {})
     }
 }

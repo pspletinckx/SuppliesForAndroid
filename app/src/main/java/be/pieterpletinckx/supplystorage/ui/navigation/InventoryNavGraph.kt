@@ -31,6 +31,8 @@ import be.pieterpletinckx.supplystorage.ui.item.ItemEditDestination
 import be.pieterpletinckx.supplystorage.ui.item.ItemEditScreen
 import be.pieterpletinckx.supplystorage.ui.item.ItemEntryDestination
 import be.pieterpletinckx.supplystorage.ui.item.ItemEntryScreen
+import be.pieterpletinckx.supplystorage.ui.search.SearchByName
+import be.pieterpletinckx.supplystorage.ui.search.SearchByNameScreen
 
 /**
  * Provides Navigation graph for the application.
@@ -42,15 +44,19 @@ fun InventoryNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = HomeDestination.route,
+        startDestination = SearchByName.route,
         modifier = modifier
     ) {
         composable(route = HomeDestination.route) {
             HomeScreen(
                 navigateToItemEntry = { navController.navigate(ItemEntryDestination.route) },
-                navigateToItemUpdate = {
-                    navController.navigate("${ItemDetailsDestination.route}/${it}")
-                }
+                navigateToItemUpdate = { navController.navigate("${ItemDetailsDestination.route}/${it}") }
+            )
+        }
+        composable(route = SearchByName.route) {
+            SearchByNameScreen(
+                navigateToItemEntry = { navController.navigate(ItemEntryDestination.route) },
+                navigateToItemUpdate = { navController.navigate("${ItemDetailsDestination.route}/${it}") }
             )
         }
         composable(route = ItemEntryDestination.route) {
