@@ -2,8 +2,18 @@ package be.pieterpletinckx.supplystorage.ui.search
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -16,13 +26,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Item
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
 import be.pieterpletinckx.supplystorage.ui.home.HomeBody
+import be.pieterpletinckx.supplystorage.ui.home.HomeDestination
 import be.pieterpletinckx.supplystorage.ui.home.HomeViewModel
 import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
@@ -35,6 +50,7 @@ object SearchByName : NavigationDestination {
     override val route = "search"
     override val titleRes = R.string.app_name
 }
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchByNameScreen(
     navigateToItemEntry: () -> Unit,
@@ -43,15 +59,42 @@ fun SearchByNameScreen(
     viewModel: SearchViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val searchUiState by viewModel.searchUiState.collectAsState()
-//    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val searchText by viewModel.searchText.collectAsState()
     val isSearching by viewModel.isSearching.collectAsState()
-    Scaffold {
+    Scaffold (
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+//            InventoryTopAppBar(
+//                title = stringResource(HomeDestination.titleRes),
+//                canNavigateBack = false,
+//                scrollBehavior = scrollBehavior
+//            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToItemEntry,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier
+                    .padding(
+                        end = WindowInsets.safeDrawing.asPaddingValues()
+                            .calculateEndPadding(LocalLayoutDirection.current)
+                    )
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(R.string.item_entry_title)
+                )
+            }
+        },
+    ){ innerPadding ->
         SearchByName(
             searchUiState.itemList,
             searchText,
             onItemClick = navigateToItemUpdate,
-            onItemSearch = viewModel::onSearchTextChange)
+            onItemSearch = viewModel::onSearchTextChange,
+            modifier = modifier.fillMaxSize(),
+            contentPadding = innerPadding)
     }
 }
 
@@ -66,7 +109,7 @@ fun SearchByName(
 ){
     var term by remember { mutableStateOf("Hello") }
     Column (
-        modifier = Modifier
+        modifier = modifier
             .padding(20.dp)
             .padding(top = 40.dp)
 //                verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
