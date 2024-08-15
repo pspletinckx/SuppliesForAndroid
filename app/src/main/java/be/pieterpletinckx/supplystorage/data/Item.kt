@@ -18,6 +18,7 @@ package be.pieterpletinckx.supplystorage.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import be.pieterpletinckx.supplystorage.model.Category
 
 /**
  * Entity data class represents a single row in the database.
@@ -28,5 +29,7 @@ data class Item(
     val id: Int = 0,
     val name: String,
     val price: Double,
-    val quantity: Int
+    val quantity: Int,
+    val category: String,
+//    val location: String
 )

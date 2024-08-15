@@ -18,7 +18,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -33,15 +32,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Datasource
 import be.pieterpletinckx.supplystorage.data.Item
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
-import be.pieterpletinckx.supplystorage.ui.catalog.CategoryList
+import be.pieterpletinckx.supplystorage.ui.category.CategoryList
 import be.pieterpletinckx.supplystorage.ui.home.HomeBody
-import be.pieterpletinckx.supplystorage.ui.home.HomeDestination
-import be.pieterpletinckx.supplystorage.ui.home.HomeViewModel
 import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 
@@ -144,9 +140,9 @@ fun nameNoInputSearch(
     InventoryTheme {
         SearchByName(
             listOf(
-                Item(1, "Game", 100.0, 20),
-                Item(2, "Pen", 200.0, 30),
-                Item(3, "TV", 300.0, 50)
+                Item(1, "San Andreas", 100.0, 20, "Game"),
+                Item(2, "Pen", 200.0, 30, "Desk"),
+                Item(3, "TV", 300.0, 50, "Electronics")
             ),
             "",
             onItemClick = {},
@@ -162,9 +158,9 @@ fun nameInputSearch(
     InventoryTheme {
         SearchByName(
             listOf(
-                Item(1, "Game", 100.0, 20),
-                Item(2, "Pen", 200.0, 30),
-                Item(3, "TV", 300.0, 50)
+                Item(1, "San Andreas", 100.0, 20, "Game"),
+                Item(2, "Pen", 200.0, 30, "Desk"),
+                Item(3, "TV", 300.0, 50, "Electronics")
             ),
             "G",
             onItemClick = {},
