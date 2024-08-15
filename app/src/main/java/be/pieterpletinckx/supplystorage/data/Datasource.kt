@@ -17,10 +17,10 @@ class Datasource() {
 
     fun loadCategories(): List<Category>{
         return listOf<Category>(
-            Category(R.string.category_drinks, R.drawable.cocacola),
-            Category(R.string.category_food, R.drawable.cocacola),
-            Category(R.string.category_cleaning, R.drawable.cocacola),
-            Category(R.string.category_bath, R.drawable.cocacola),
+            Category(R.string.category_drinks, R.drawable.category_drinks_cocktail),
+            Category(R.string.category_food, R.drawable.category_food_canned),
+            Category(R.string.category_cleaning, R.drawable.category_cleaning_spray_soap),
+            Category(R.string.category_bath, R.drawable.category_bath_zen),
         )
     }
 }

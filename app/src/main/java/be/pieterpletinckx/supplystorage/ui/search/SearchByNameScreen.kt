@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -34,8 +35,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.R
+import be.pieterpletinckx.supplystorage.data.Datasource
 import be.pieterpletinckx.supplystorage.data.Item
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
+import be.pieterpletinckx.supplystorage.ui.catalog.CategoryList
 import be.pieterpletinckx.supplystorage.ui.home.HomeBody
 import be.pieterpletinckx.supplystorage.ui.home.HomeDestination
 import be.pieterpletinckx.supplystorage.ui.home.HomeViewModel
@@ -127,7 +130,28 @@ fun SearchByName(
             enabled = true,
             singleLine = true
         )
-        HomeBody(itemList, onItemClick = onItemClick)
+        if(searchTerm.isNotBlank()) {
+            HomeBody(itemList, onItemClick = onItemClick)
+        } else {
+            CategoryList(affirmationList = Datasource().loadCategories())
+        }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun nameNoInputSearch(
+) {
+    InventoryTheme {
+        SearchByName(
+            listOf(
+                Item(1, "Game", 100.0, 20),
+                Item(2, "Pen", 200.0, 30),
+                Item(3, "TV", 300.0, 50)
+            ),
+            "",
+            onItemClick = {},
+            onItemSearch = {}
+        )
     }
 }
 
@@ -142,7 +166,7 @@ fun nameInputSearch(
                 Item(2, "Pen", 200.0, 30),
                 Item(3, "TV", 300.0, 50)
             ),
-            "",
+            "G",
             onItemClick = {},
             onItemSearch = {}
         )
