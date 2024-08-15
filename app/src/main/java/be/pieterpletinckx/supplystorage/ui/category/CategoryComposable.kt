@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Datasource
-import be.pieterpletinckx.supplystorage.model.Category
+import be.pieterpletinckx.supplystorage.data.Category
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 
 class CategoryComposable : ComponentActivity() {

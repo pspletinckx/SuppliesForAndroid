@@ -43,7 +43,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.R
+import be.pieterpletinckx.supplystorage.data.Datasource
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
+import be.pieterpletinckx.supplystorage.ui.DynamicSelectTextField
 import be.pieterpletinckx.supplystorage.ui.item.ItemDetails
 import be.pieterpletinckx.supplystorage.ui.item.ItemEntryViewModel
 import be.pieterpletinckx.supplystorage.ui.item.ItemUiState
@@ -152,18 +154,30 @@ fun ItemInputForm(
             enabled = enabled,
             singleLine = true
         )
-        OutlinedTextField(
-            value = itemDetails.category,
-            onValueChange = { onValueChange(itemDetails.copy(category = it)) },
-            label = { Text(stringResource(R.string.item_category_req)) },
+//        OutlinedTextField(
+//            value = itemDetails.category,
+//            onValueChange = { onValueChange(itemDetails.copy(category = it)) },
+//            label = { Text(stringResource(R.string.item_category_req)) },
+//            colors = OutlinedTextFieldDefaults.colors(
+//                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+//                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+//                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+//            ),
+//            modifier = Modifier.fillMaxWidth(),
+//            enabled = enabled,
+//            singleLine = true
+//        )
+        DynamicSelectTextField(
+            selectedValue = itemDetails.category,
+            options = Datasource().loadCategories().map { stringResource(it.name) },
+            label = "Label",
+            onValueChangedEvent = { onValueChange(itemDetails.copy(category = it)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
+            )
+
         )
         OutlinedTextField(
             value = itemDetails.price,

@@ -1,7 +1,6 @@
 package be.pieterpletinckx.supplystorage.data
 
 import be.pieterpletinckx.supplystorage.R
-import be.pieterpletinckx.supplystorage.model.Category
 import be.pieterpletinckx.supplystorage.model.ProductDefinition
 
 class Datasource() {
