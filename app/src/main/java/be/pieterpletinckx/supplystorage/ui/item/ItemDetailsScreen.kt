@@ -280,7 +280,7 @@ fun ItemDetailsScreenPreview() {
         ItemDetailsBody(
             ItemDetailsUiState(
                 outOfStock = true,
-                itemDetails = be.pieterpletinckx.supplystorage.ui.item.ItemDetails(1, "Pen", "$100", "10")
+                itemDetails = ItemDetails(1, "Pen", "$100", "10", "Office")
         ), onSellItem = {}, onDelete = {})
     }
 }
