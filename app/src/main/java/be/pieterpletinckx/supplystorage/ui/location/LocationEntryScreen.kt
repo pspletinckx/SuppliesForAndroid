@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package be.pieterpletinckx.supplystorage.ui.item
+package be.pieterpletinckx.supplystorage.ui.location
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -32,7 +29,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,21 +39,14 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.R
@@ -73,15 +62,14 @@ import kotlinx.coroutines.launch
 import java.util.Currency
 import java.util.Locale
 
-object ItemEntryDestination : NavigationDestination {
-    override val route = "item_entry"
+object LocationEntryDestination : NavigationDestination {
+    override val route = "location_entry"
     override val titleRes = R.string.item_entry_title
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ItemEntryScreen(
-    navigateToLocationEntry : () -> Unit,
+fun LocationEntryScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     canNavigateBack: Boolean = true,
@@ -91,26 +79,10 @@ fun ItemEntryScreen(
     Scaffold(
         topBar = {
             InventoryTopAppBar(
-                title = stringResource(ItemEntryDestination.titleRes),
+                title = stringResource(LocationEntryDestination.titleRes),
                 canNavigateBack = canNavigateBack,
                 navigateUp = onNavigateUp
             )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = navigateToLocationEntry,
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier
-                    .padding(
-                        end = WindowInsets.safeDrawing.asPaddingValues()
-                            .calculateEndPadding(LocalLayoutDirection.current)
-                    )
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Home,
-                    contentDescription = stringResource(R.string.item_entry_title)
-                )
-            }
         }
     ) { innerPadding ->
         ItemEntryBody(
@@ -216,78 +188,31 @@ fun ItemInputForm(
             enabled = enabled,
             singleLine = true
         )
-        var createStorage by remember { mutableStateOf(false) }
-        var addRow by remember { mutableStateOf(1) }
-        for(i in 1..addRow) {
-            Row(
-                modifier = modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                DynamicSelectTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(3f)
-                        .padding(3.dp),
-                    selectedValue = itemDetails.location,
-                    options = Datasource().loadCategories().map { stringResource(it.name) },
-                    label = stringResource(id = R.string.item_location),
-                    onValueChangedEvent = { onValueChange(itemDetails.copy(category = it)) },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    )
-                )
-                OutlinedTextField(
-                    value = itemDetails.quantity,
-                    onValueChange = { onValueChange(itemDetails.copy(quantity = it)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    label = { Text(stringResource(R.string.quantity_symbol)) },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .padding(3.dp),
-                    enabled = enabled,
-                    singleLine = true
-                )
-            }
-        }
-
-        if (createStorage) {
-            Text(text = "New Location Creation goes here")
-        }
-        Row(
-            modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-
-        ) {
-            Button(
-                onClick = {createStorage = !createStorage},
-                shape = MaterialTheme.shapes.small,
-                modifier = modifier
-                    .fillMaxWidth()
-                    .weight(3f)
-                    .padding(3.dp),
-            ) {
-                Text(text = stringResource(R.string.location_create_new))
-            }
-            Button(
-                onClick = {addRow++},
-                shape = MaterialTheme.shapes.small,
-                modifier = modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .padding(3.dp),
-            ) {
-                Text(text = stringResource(R.string.location_add_another_symbol))
-            }
-        }
-
+        OutlinedTextField(
+            value = itemDetails.quantity,
+            onValueChange = { onValueChange(itemDetails.copy(quantity = it)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            label = { Text(stringResource(R.string.quantity_req)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
+        DynamicSelectTextField(
+            selectedValue = itemDetails.location,
+            options = Datasource().loadCategories().map { stringResource(it.name) },
+            label = stringResource(id = R.string.item_category_req),
+            onValueChangedEvent = { onValueChange(itemDetails.copy(category = it)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            )
+        )
         if (enabled) {
             Text(
                 text = stringResource(R.string.required_fields),

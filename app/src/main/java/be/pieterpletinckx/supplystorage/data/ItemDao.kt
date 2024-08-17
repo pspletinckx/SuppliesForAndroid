@@ -21,8 +21,8 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
-import be.pieterpletinckx.supplystorage.data.Item
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -34,7 +34,7 @@ interface ItemDao {
     @Query("SELECT * from items ORDER BY name ASC")
     fun getAllItems(): Flow<List<Item>>
 
-    @Query("SELECT * from items WHERE id = :id")
+    @Query("SELECT * from items WHERE itemId = :id")
     fun getItem(id: Int): Flow<Item>
 
     // Specify the conflict strategy as IGNORE, when the user tries to add an
@@ -47,4 +47,11 @@ interface ItemDao {
 
     @Delete
     suspend fun delete(item: Item)
+
+    @Transaction
+    @Query("SELECT * FROM items")
+    fun getItemsWithLocations(): Flow<List<ItemWithLocations>>
+
+//    @Insert(onConflict = OnConflictStrategy.IGNORE)
+//    suspend fun insert(itemWithLocations: ItemWithLocations)
 }

@@ -16,9 +16,6 @@
 
 package be.pieterpletinckx.supplystorage.data
 
-import be.pieterpletinckx.supplystorage.data.Item
-import be.pieterpletinckx.supplystorage.data.ItemDao
-import be.pieterpletinckx.supplystorage.data.ItemsRepository
 import kotlinx.coroutines.flow.Flow
 
 class OfflineItemsRepository(private val itemDao: ItemDao) : ItemsRepository {

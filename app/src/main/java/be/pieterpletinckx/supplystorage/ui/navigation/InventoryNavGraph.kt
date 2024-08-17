@@ -31,6 +31,8 @@ import be.pieterpletinckx.supplystorage.ui.item.ItemEditDestination
 import be.pieterpletinckx.supplystorage.ui.item.ItemEditScreen
 import be.pieterpletinckx.supplystorage.ui.item.ItemEntryDestination
 import be.pieterpletinckx.supplystorage.ui.item.ItemEntryScreen
+import be.pieterpletinckx.supplystorage.ui.location.LocationEntryDestination
+import be.pieterpletinckx.supplystorage.ui.location.LocationEntryScreen
 import be.pieterpletinckx.supplystorage.ui.search.SearchByName
 import be.pieterpletinckx.supplystorage.ui.search.SearchByNameScreen
 
@@ -61,6 +63,7 @@ fun InventoryNavHost(
         }
         composable(route = ItemEntryDestination.route) {
             ItemEntryScreen(
+                navigateToLocationEntry = {},
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )
@@ -83,6 +86,12 @@ fun InventoryNavHost(
             })
         ) {
             ItemEditScreen(
+                navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() }
+            )
+        }
+        composable(route = LocationEntryDestination.route) {
+            LocationEntryScreen(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )

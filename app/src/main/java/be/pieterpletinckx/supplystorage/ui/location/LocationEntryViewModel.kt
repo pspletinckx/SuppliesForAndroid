@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package be.pieterpletinckx.supplystorage.ui.item
+package be.pieterpletinckx.supplystorage.ui.location
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,7 +27,7 @@ import java.text.NumberFormat
 /**
  * ViewModel to validate and insert items in the Room database.
  */
-class ItemEntryViewModel(private val itemsRepository: ItemsRepository) : ViewModel() {
+class LocationEntryViewModel(private val itemsRepository: ItemsRepository) : ViewModel() {
 
     /**
      * Holds current item ui state

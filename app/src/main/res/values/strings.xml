@@ -33,4 +33,9 @@
     <string name="yes">Yes</string>
     <string name="required_fields">*required fields</string>
     <string name="category">Category</string>
+    <string name="item_location">Location</string>
+    <string name="quantity_symbol">#</string>
+    <string name="location_create_new">Create new storage</string>
+    <string name="location_add_another">Add Storage</string>
+    <string name="location_add_another_symbol">Add</string>
 </resources>
