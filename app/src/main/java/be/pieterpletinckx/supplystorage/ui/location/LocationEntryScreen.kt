@@ -18,22 +18,15 @@ package be.pieterpletinckx.supplystorage.ui.location
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -54,7 +47,6 @@ import be.pieterpletinckx.supplystorage.data.Datasource
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
 import be.pieterpletinckx.supplystorage.ui.DynamicSelectTextField
 import be.pieterpletinckx.supplystorage.ui.item.ItemDetails
-import be.pieterpletinckx.supplystorage.ui.item.ItemEntryViewModel
 import be.pieterpletinckx.supplystorage.ui.item.ItemUiState
 import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
@@ -73,7 +65,7 @@ fun LocationEntryScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     canNavigateBack: Boolean = true,
-    viewModel: ItemEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: LocationEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
@@ -86,7 +78,7 @@ fun LocationEntryScreen(
         }
     ) { innerPadding ->
         ItemEntryBody(
-            itemUiState = viewModel.itemUiState,
+            locationUiState = viewModel.locationUiState,
             onItemValueChange = viewModel::updateUiState,
             onSaveClick = {
                 // Note: If the user rotates the screen very fast, the operation may get cancelled
@@ -112,8 +104,8 @@ fun LocationEntryScreen(
 
 @Composable
 fun ItemEntryBody(
-    itemUiState: ItemUiState,
-    onItemValueChange: (ItemDetails) -> Unit,
+    locationUiState: LocationUiState,
+    onItemValueChange: (LocationDetails) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -121,14 +113,14 @@ fun ItemEntryBody(
         modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large))
     ) {
-        ItemInputForm(
-            itemDetails = itemUiState.itemDetails,
+        LocationCreation(
+            locationDetails = locationUiState.locationDetails,
             onValueChange = onItemValueChange,
             modifier = Modifier.fillMaxWidth()
         )
         Button(
             onClick = onSaveClick,
-            enabled = itemUiState.isEntryValid,
+            enabled = locationUiState.isEntryValid,
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -226,9 +218,9 @@ fun ItemInputForm(
 @Composable
 private fun ItemEntryScreenPreview() {
     InventoryTheme {
-        ItemEntryBody(itemUiState = ItemUiState(
-            ItemDetails(
-                name = "Item name", price = "10.00", quantity = "5"
+        ItemEntryBody(locationUiState = LocationUiState(
+            LocationDetails(
+                name = "Fridge", parent = "Kitchen", image = "Image Todo"
             )
         ), onItemValueChange = {}, onSaveClick = {})
     }

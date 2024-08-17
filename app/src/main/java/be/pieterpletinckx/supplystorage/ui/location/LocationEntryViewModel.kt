@@ -22,26 +22,30 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import be.pieterpletinckx.supplystorage.data.Item
 import be.pieterpletinckx.supplystorage.data.ItemsRepository
+import be.pieterpletinckx.supplystorage.data.Location
+import be.pieterpletinckx.supplystorage.data.LocationRepository
 import java.text.NumberFormat
 
 /**
  * ViewModel to validate and insert items in the Room database.
  */
-class LocationEntryViewModel(private val itemsRepository: ItemsRepository) : ViewModel() {
+class LocationEntryViewModel(
+    private val itemsRepository: ItemsRepository,
+    private val locationRepository: LocationRepository) : ViewModel() {
 
-    /**
-     * Holds current item ui state
-     */
-    var itemUiState by mutableStateOf(ItemUiState())
+    var locationUiState by mutableStateOf(LocationUiState())
         private set
 
-    /**
-     * Updates the [itemUiState] with the value provided in the argument. This method also triggers
-     * a validation for input values.
-     */
-    fun updateUiState(itemDetails: ItemDetails) {
-        itemUiState =
-            ItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
+    fun updateUiState(locationDetails: LocationDetails) {
+        locationUiState =  LocationUiState(
+            locationDetails = locationDetails,
+            isEntryValid = validateInput(locationDetails))
+    }
+
+    private fun validateInput(uiState: LocationDetails = locationUiState.locationDetails): Boolean {
+        return with(uiState) {
+            name.isNotBlank()
+        }
     }
 
     /**
@@ -49,20 +53,11 @@ class LocationEntryViewModel(private val itemsRepository: ItemsRepository) : Vie
      */
     suspend fun saveItem() {
         if (validateInput()) {
-            itemsRepository.insertItem(itemUiState.itemDetails.toItem())
-        }
-    }
-
-    private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
-        return with(uiState) {
-            name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
+            locationRepository.insertLocation(locationUiState.locationDetails.toItem())
         }
     }
 }
 
-/**
- * Represents Ui State for an Item.
- */
 data class ItemUiState(
     val itemDetails: ItemDetails = ItemDetails(),
     val isEntryValid: Boolean = false
@@ -77,14 +72,17 @@ data class ItemDetails(
     val location: String = "",
 )
 
+data class LocationUiState(
+    val locationDetails: LocationDetails = LocationDetails(),
+    val isEntryValid: Boolean = false
+)
+
 data class LocationDetails (
     val id: Int=0,
     val name: String="",
     val parent: String = "",
     val image : String = "",
 )
-
-
 
 /**
  * Extension function to convert [ItemUiState] to [Item]. If the value of [ItemDetails.price] is
@@ -99,15 +97,23 @@ fun ItemDetails.toItem(): Item = Item(
     category = category
 )
 
-fun Item.formatedPrice(): String {
-    return NumberFormat.getCurrencyInstance().format(price)
-}
+fun LocationDetails.toItem(): Location = Location(
+    locationId = id,
+    locationName = name,
+    parentId = parent.toIntOrNull() ?: 0,
+    image = image
+)
 
 /**
  * Extension function to convert [Item] to [ItemUiState]
  */
 fun Item.toItemUiState(isEntryValid: Boolean = false): ItemUiState = ItemUiState(
     itemDetails = this.toItemDetails(),
+    isEntryValid = isEntryValid
+)
+
+fun Location.toLocationUiState(isEntryValid: Boolean = false): LocationUiState = LocationUiState(
+    locationDetails = this.toLocationDetails(),
     isEntryValid = isEntryValid
 )
 
@@ -120,4 +126,11 @@ fun Item.toItemDetails(): ItemDetails = ItemDetails(
     price = price.toString(),
     quantity = quantity.toString(),
     category = category
+)
+
+fun Location.toLocationDetails(): LocationDetails = LocationDetails(
+    id = locationId,
+    name = locationName,
+    parent = parentId.toString(),
+    image = image
 )

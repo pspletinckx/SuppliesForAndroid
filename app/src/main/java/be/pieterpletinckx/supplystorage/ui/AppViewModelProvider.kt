@@ -27,6 +27,7 @@ import be.pieterpletinckx.supplystorage.ui.home.HomeViewModel
 import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsViewModel
 import be.pieterpletinckx.supplystorage.ui.item.ItemEditViewModel
 import be.pieterpletinckx.supplystorage.ui.item.ItemEntryViewModel
+import be.pieterpletinckx.supplystorage.ui.location.LocationEntryViewModel
 import be.pieterpletinckx.supplystorage.ui.search.SearchViewModel
 
 /**
@@ -64,6 +65,12 @@ object AppViewModelProvider {
 
         initializer {
             SearchViewModel(inventoryApplication().container.itemsRepository)
+        }
+        initializer {
+            LocationEntryViewModel(
+                inventoryApplication().container.itemsRepository,
+                inventoryApplication().container.locationRepository
+            )
         }
     }
 }
