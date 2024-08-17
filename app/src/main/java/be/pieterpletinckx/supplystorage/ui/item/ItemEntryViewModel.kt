@@ -20,20 +20,40 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import be.pieterpletinckx.supplystorage.data.Item
 import be.pieterpletinckx.supplystorage.data.ItemsRepository
+import be.pieterpletinckx.supplystorage.data.Location
+import be.pieterpletinckx.supplystorage.data.LocationRepository
+import be.pieterpletinckx.supplystorage.ui.search.SearchUiState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import java.text.NumberFormat
 
 /**
  * ViewModel to validate and insert items in the Room database.
  */
-class ItemEntryViewModel(private val itemsRepository: ItemsRepository) : ViewModel() {
+class ItemEntryViewModel(private val itemsRepository: ItemsRepository, private val locationRepository: LocationRepository) : ViewModel() {
+
 
     /**
      * Holds current item ui state
      */
     var itemUiState by mutableStateOf(ItemUiState())
         private set
+
+    companion object {
+        private const val TIMEOUT_MILLIS = 5_000L
+    }
+
+    val availableLocations: StateFlow<List<Location>> = locationRepository.getAllItemsStream()
+    .stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+        initialValue = listOf(Location( locationName = "house", image = ""))
+    )
 
     /**
      * Updates the [itemUiState] with the value provided in the argument. This method also triggers

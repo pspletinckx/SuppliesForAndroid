@@ -44,8 +44,8 @@ class LocationDaoTest {
     private lateinit var locationDao: LocationDao
     private lateinit var itemsPerLocationDao: ItemsPerLocationDao
     private lateinit var inventoryDatabase: InventoryDatabase
-    private val location1 = Location(10, image="image of an Apple")
-    private val location2 = Location(20, image="image of a Banana")
+    private val location1 = Location(10, "Fruit Basket", image="image of an Apple")
+    private val location2 = Location(20, "Fridge", image="image of a Banana")
     private val item1 = Item(1, "Apples", 10.0, 20, "Food")
     private val item2 = Item(2, "Bananas", 15.0, 97, "Food")
 
@@ -73,8 +73,8 @@ class LocationDaoTest {
     @Test
     @Throws(Exception::class)
     fun daoGetItemWithLocations_returnsItemFromDB() = runBlocking {
-        val location1 = Location(10, image="image of an Apple")
-        val location2 = Location(20, image="image of a Banana")
+        val location1 = Location(10, "Kitchen", image="image of an Apple")
+        val location2 = Location(20, "Storage", image="image of a Banana")
         val item1 = Item(1, "Apples", 10.0, 20, "Food")
         val item2 = Item(2, "Bananas", 15.0, 97, "Food")
 
@@ -82,8 +82,6 @@ class LocationDaoTest {
         locationDao.insert(location2)
         itemDao.insert(item1)
         itemDao.insert(item2)
-
-//        locationDao.insert(LocationWithItems(location = location1, items = listOf(item1, item2)))
 
         itemsPerLocationDao.insert(ItemsPerLocation(
             locationFkId =  location1.locationId,
@@ -98,7 +96,6 @@ class LocationDaoTest {
             itemId = item1.itemId,
             quantity = 4))
 
-
         val allItemsPerLocations = itemsPerLocationDao.getAllItemsPerLocations().first()
 
         val debugString =
@@ -107,17 +104,5 @@ class LocationDaoTest {
 
         Assert.assertEquals(debugString,3, allItemsPerLocations.size)
         Assert.assertEquals(debugString, 2, allItemsPerLocations.filter {it.item.name == "Apples"}.size)
-
-//
-//        val locationWithItems = locationDao.getLocationsWithItems().first()
-//        val itemsPerLocation = itemsPerLocationDao.getAllItemsPerLocations()
-//        Assert.assertEquals(2, itemsPerLocation.first().itemsPerLocation.number)
-//
-//        val items = locationDao.getLocationWithItems(1).first().numberOfItems.size
-//        Assert.assertEquals(2, locationWithItems.first().numberOfItems.size)
-//        Assert.assertEquals(2, items)
-//
-//        val itemWithLocations = itemDao.getItemsWithLocations().first()
-//        Assert.assertNotNull(itemWithLocations);
     }
 }

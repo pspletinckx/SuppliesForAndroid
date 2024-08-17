@@ -38,4 +38,7 @@
     <string name="location_create_new">Create new storage</string>
     <string name="location_add_another">Add Storage</string>
     <string name="location_add_another_symbol">Add</string>
+    <string name="location_name_req">Name your storage *</string>
+    <string name="location_parent_opt">Inside another storage ? (optional)</string>
+    <string name="location_image_opt">Image (optional)</string>
 </resources>

@@ -22,7 +22,7 @@ import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Category
 import be.pieterpletinckx.supplystorage.data.Datasource
 
-class locationScreen {
+class LocationScreen {
 
     @Composable
     fun AffirmationsApp() {

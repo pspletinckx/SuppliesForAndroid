@@ -32,7 +32,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.R
-import be.pieterpletinckx.supplystorage.ui.item.ItemEntryBody
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
 import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
@@ -83,7 +82,8 @@ fun ItemEditScreen(
                     top = innerPadding.calculateTopPadding(),
                     end = innerPadding.calculateEndPadding(LocalLayoutDirection.current),
                 )
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()),
+            availableLocations = listOf() // TODO
         )
     }
 }

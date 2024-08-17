@@ -48,10 +48,6 @@ interface ItemDao {
     @Delete
     suspend fun delete(item: Item)
 
-    @Transaction
-    @Query("SELECT * FROM items")
-    fun getItemsWithLocations(): Flow<List<ItemWithLocations>>
-
 //    @Insert(onConflict = OnConflictStrategy.IGNORE)
 //    suspend fun insert(itemWithLocations: ItemWithLocations)
 }

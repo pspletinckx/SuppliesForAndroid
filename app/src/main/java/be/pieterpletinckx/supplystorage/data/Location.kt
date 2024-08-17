@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class Location(
     @PrimaryKey(autoGenerate = true)
     val locationId: Int = 0,
+    val locationName: String,
     val parentId : Int? = null,
     val image: String,
 )

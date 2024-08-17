@@ -24,7 +24,7 @@ import androidx.room.RoomDatabase
 /**
  * Database class with a singleton Instance object.
  */
-@Database(entities = [Item::class, ItemsPerLocation::class, Location::class], version = 5, exportSchema = false)
+@Database(entities = [Item::class, ItemsPerLocation::class, Location::class], version = 6, exportSchema = false)
 abstract class InventoryDatabase : RoomDatabase() {
 
     abstract fun itemDao(): ItemDao

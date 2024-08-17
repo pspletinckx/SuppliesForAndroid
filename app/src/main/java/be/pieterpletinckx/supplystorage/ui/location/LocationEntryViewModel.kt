@@ -77,6 +77,15 @@ data class ItemDetails(
     val location: String = "",
 )
 
+data class LocationDetails (
+    val id: Int=0,
+    val name: String="",
+    val parent: String = "",
+    val image : String = "",
+)
+
+
+
 /**
  * Extension function to convert [ItemUiState] to [Item]. If the value of [ItemDetails.price] is
  * not a valid [Double], then the price will be set to 0.0. Similarly if the value of
