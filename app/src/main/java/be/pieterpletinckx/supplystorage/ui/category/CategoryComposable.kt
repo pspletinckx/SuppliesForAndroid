@@ -47,37 +47,47 @@ class CategoryComposable : ComponentActivity() {
 fun AffirmationsApp() {
     CategoryList(
         affirmationList = Datasource().loadCategories(),
+        onClick = {}
     )
 }
 
 @Composable
-fun CategoryList(affirmationList: List<Category>, modifier: Modifier = Modifier) {
+fun CategoryList(
+        affirmationList: List<Category>,
+        modifier: Modifier = Modifier,
+        onClick: (String) -> Unit) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 160.dp),
         modifier = modifier) {
         items(affirmationList) { affirmation ->
             CategoryCard(
                 affirmation = affirmation,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                onClick = onClick
             )
         }
     }
 }
 
 @Composable
-fun CategoryCard(affirmation: Category, modifier: Modifier = Modifier) {
-    Card(modifier = modifier) {
+fun CategoryCard(
+    affirmation: Category,
+    modifier: Modifier = Modifier,
+    onClick: (String) -> Unit,
+    ) {
+    Card(modifier = modifier,
+        onClick = { onClick(affirmation.name)}) {
         Column {
             Image(
                 painter = painterResource(affirmation.image),
-                contentDescription = stringResource(affirmation.name),
+                contentDescription = affirmation.name,
                 modifier = Modifier
 //                    .fillMaxWidth()
                     .height(194.dp),
                 contentScale = ContentScale.Crop
             )
             Text(
-                text = LocalContext.current.getString(affirmation.name),
+                text = affirmation.name,
                 modifier = Modifier.padding(16.dp),
                 style = MaterialTheme.typography.headlineSmall
             )
@@ -87,12 +97,13 @@ fun CategoryCard(affirmation: Category, modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-private fun CategoryCard() {
-    CategoryCard(Category(R.string.category_drinks, R.drawable.cocacola))
+private fun CategoryCardPreview() {
+    CategoryCard(Category("Drinks", R.drawable.cocacola), onClick = {})
 }
 
 @Preview
 @Composable
 private fun CategoryGrid() {
-    CategoryList(affirmationList = Datasource().loadCategories(),)
+    CategoryList(affirmationList = Datasource().loadCategories(),
+        onClick = {})
 }

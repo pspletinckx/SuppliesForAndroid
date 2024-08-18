@@ -76,7 +76,7 @@ private fun DynamicSelectTextFieldPreview() {
     InventoryTheme {
         DynamicSelectTextField(
             selectedValue = "mock",
-            options = Datasource().loadCategories().map { stringResource(it.name) },
+            options = Datasource().loadCategories().map { (it.name) },
             label = stringResource(id = R.string.item_category_req),
             onValueChangedEvent = { },
             colors = OutlinedTextFieldDefaults.colors(

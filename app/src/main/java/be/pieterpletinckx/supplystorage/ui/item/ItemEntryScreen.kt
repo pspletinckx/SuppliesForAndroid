@@ -183,7 +183,7 @@ fun ItemInputForm(
 
         DynamicSelectTextField(
             selectedValue = itemDetails.category,
-            options = Datasource().loadCategories().map { stringResource(it.name) },
+            options = Datasource().loadCategories().map { (it.name) },
             label = stringResource(id = R.string.item_category_req),
             onValueChangedEvent = { onValueChange(itemDetails.copy(category = it)) },
             colors = OutlinedTextFieldDefaults.colors(

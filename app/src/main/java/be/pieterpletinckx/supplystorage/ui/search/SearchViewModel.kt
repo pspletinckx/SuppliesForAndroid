@@ -31,7 +31,8 @@ class SearchViewModel (itemsRepository: ItemsRepository) : ViewModel() {
     val searchUiState: StateFlow<SearchUiState> = itemsRepository.getAllItemsStream()
         .combine(searchText) {
             items, search -> items.filter {
-                item -> item.name.uppercase().contains(search.uppercase())
+                item -> item.name.uppercase().contains(search.uppercase()) ||
+                item.category.uppercase().contains(search.uppercase())
             }
         }
         .map { SearchUiState(it) }

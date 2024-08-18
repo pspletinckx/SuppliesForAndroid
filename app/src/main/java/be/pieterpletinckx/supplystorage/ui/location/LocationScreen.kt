@@ -51,14 +51,14 @@ class LocationScreen {
             Column {
                 Image(
                     painter = painterResource(affirmation.image),
-                    contentDescription = stringResource(affirmation.name),
+                    contentDescription = (affirmation.name),
                     modifier = Modifier
 //                    .fillMaxWidth()
                         .height(194.dp),
                     contentScale = ContentScale.Crop
                 )
                 Text(
-                    text = LocalContext.current.getString(affirmation.name),
+                    text = (affirmation.name),
                     modifier = Modifier.padding(16.dp),
                     style = MaterialTheme.typography.headlineSmall
                 )
@@ -69,7 +69,7 @@ class LocationScreen {
     @Preview
     @Composable
     private fun CategoryCard() {
-        CategoryCard(Category(R.string.category_drinks, R.drawable.cocacola))
+        CategoryCard(Category("Drinks", R.drawable.cocacola))
     }
 
     @Preview

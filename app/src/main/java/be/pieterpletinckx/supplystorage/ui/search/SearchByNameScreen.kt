@@ -42,7 +42,8 @@ import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 
 /**
-* This triggered by typing the name of a product in a single input field
+ * A screen that allows for both quick categorical nav  and search
+ * triggered by typing the name of a product in a single input field
 */
 
 object SearchByName : NavigationDestination {
@@ -60,15 +61,10 @@ fun SearchByNameScreen(
     val searchUiState by viewModel.searchUiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val searchText by viewModel.searchText.collectAsState()
-    val isSearching by viewModel.isSearching.collectAsState()
+
     Scaffold (
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-//            InventoryTopAppBar(
-//                title = stringResource(HomeDestination.titleRes),
-//                canNavigateBack = false,
-//                scrollBehavior = scrollBehavior
-//            )
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -129,7 +125,8 @@ fun SearchByName(
         if(searchTerm.isNotBlank()) {
             HomeBody(itemList, onItemClick = onItemClick)
         } else {
-            CategoryList(affirmationList = Datasource().loadCategories())
+            CategoryList(affirmationList = Datasource().loadCategories(),
+                onClick = onItemSearch)
         }
     }
 }
