@@ -8,6 +8,6 @@ import androidx.annotation.StringRes
  * has a 1 to N relationship with Item
  */
 data class Category(
-    @StringRes val name: String,
+    val name: String,
     @DrawableRes val image: Int,
 )

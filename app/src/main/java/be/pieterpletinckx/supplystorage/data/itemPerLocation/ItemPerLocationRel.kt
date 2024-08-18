@@ -7,7 +7,7 @@ import be.pieterpletinckx.supplystorage.data.location.Location
 
 /**
  * RoomDB Relational class that pulls in both Location and Item objects,
- * Used in multiple DOA depending on Query used
+ * Used in multiple DOA depending on QUer
  */
 data class ItemPerLocationRel(
     @Embedded val itemsPerLocation: ItemsPerLocation,
