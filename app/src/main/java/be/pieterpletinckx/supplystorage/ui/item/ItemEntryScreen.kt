@@ -209,7 +209,7 @@ fun ItemInputForm(
         )
         LocationsEntryList(
             availableLocations = availableLocations,
-            onValueChange = { onValueChange(itemDetails.copy(location = it)) }
+            onValueChange = { onValueChange(itemDetails.copy(locations = it)) }
         )
         if (enabled) {
             Text(

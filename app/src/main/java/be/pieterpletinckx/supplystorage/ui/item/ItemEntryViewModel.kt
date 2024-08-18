@@ -28,8 +28,6 @@ import be.pieterpletinckx.supplystorage.data.ItemsRepository
 import be.pieterpletinckx.supplystorage.data.Location
 import be.pieterpletinckx.supplystorage.data.LocationRepository
 import be.pieterpletinckx.supplystorage.ui.location.ItemsPerLocationDetails
-import be.pieterpletinckx.supplystorage.ui.search.SearchUiState
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -84,7 +82,7 @@ class ItemEntryViewModel(
 
     private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
         return with(uiState) {
-            name.isNotBlank() && price.isNotBlank() && category.isNotBlank() && location.isNotEmpty()
+            name.isNotBlank() && price.isNotBlank() && category.isNotBlank() && locations.isNotEmpty()
         }
     }
 }
@@ -102,7 +100,7 @@ data class ItemDetails(
     val name: String = "",
     val price: String = "",
     val category: String = "",
-    val location: List<ItemsPerLocationDetails> = listOf(),
+    val locations: List<ItemsPerLocationDetails> = listOf(),
 )
 
 /**
@@ -115,12 +113,12 @@ fun ItemDetails.toItem(): Item = Item(
     name = name,
     price = price.toDoubleOrNull() ?: 0.0,
     category = category,
-    quantity = location.map { it.quantity.toIntOrNull()?:0 }.sum()
+    quantity = locations.map { it.quantity.toIntOrNull()?:0 }.sum()
 )
 
 fun ItemDetails.toItemsPerLocations(): List<ItemsPerLocation> {
     val templateItem = ItemsPerLocation(itemId = id, locationFkId = 0, quantity = 0)
-    return  location.map {
+    return  locations.map {
         templateItem.copy(
             locationFkId = it.locationFkId ?: 0,
             quantity = it.quantity.toIntOrNull() ?: 0

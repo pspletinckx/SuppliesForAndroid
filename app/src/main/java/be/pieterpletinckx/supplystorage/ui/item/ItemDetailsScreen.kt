@@ -153,6 +153,10 @@ private fun ItemDetailsBody(
         ItemDetails(
             item = itemDetailsUiState.itemDetails.toItem(), modifier = Modifier.fillMaxWidth()
         )
+        for(itemsPerLocation in itemDetailsUiState.itemDetails.locations) {
+            Text(text = itemsPerLocation.locationName + " " + itemsPerLocation.quantity)
+        }
+
         Button(
             onClick = onSellItem,
             modifier = Modifier.fillMaxWidth(),
@@ -281,7 +285,10 @@ fun ItemDetailsScreenPreview() {
         ItemDetailsBody(
             ItemDetailsUiState(
                 outOfStock = true,
-                itemDetails = ItemDetails(1, "Pen", "$100", "10", listOf(ItemsPerLocationDetails()))
+                itemDetails = ItemDetails(1, "Pen", "$100", "10", listOf(
+                    ItemsPerLocationDetails(locationName = "Kitchen", quantity = "4"),
+                    ItemsPerLocationDetails(locationName = "Freezer", quantity = "9")
+                ))
         ), onSellItem = {}, onDelete = {})
     }
 }

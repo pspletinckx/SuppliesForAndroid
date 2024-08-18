@@ -19,14 +19,10 @@ package be.pieterpletinckx.supplystorage.ui.item
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import be.pieterpletinckx.supplystorage.data.Item
-import be.pieterpletinckx.supplystorage.data.ItemPerLocationRel
-import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsDestination
 import be.pieterpletinckx.supplystorage.data.ItemsRepository
 import be.pieterpletinckx.supplystorage.ui.location.ItemsPerLocationDetails
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -66,7 +62,7 @@ class ItemDetailsViewModel(
                     name = item.name,
                     price = item.price.toString(),
                     category = item.category,
-                    location = it.map { location -> ItemsPerLocationDetails(
+                    locations = it.map { location -> ItemsPerLocationDetails(
                             locationFkId = location.location.locationId,
                             locationName = location.location.locationName,
                             quantity = location.itemsPerLocation.quantity.toString()) }
