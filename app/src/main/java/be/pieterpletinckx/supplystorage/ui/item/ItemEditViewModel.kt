@@ -66,8 +66,9 @@ class ItemEditViewModel(
      * a validation for input values.
      */
     fun updateUiState(itemDetails: ItemDetails) {
-        itemUiState =
-            ItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
+        itemUiState = ItemUiState(
+            itemDetails = itemDetails,
+            isEntryValid = validateInput(itemDetails))
     }
 
     private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {

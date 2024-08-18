@@ -33,6 +33,8 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -44,6 +46,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Datasource
+import be.pieterpletinckx.supplystorage.data.Location
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
 import be.pieterpletinckx.supplystorage.ui.DynamicSelectTextField
 import be.pieterpletinckx.supplystorage.ui.item.ItemDetails
@@ -77,8 +80,10 @@ fun LocationEntryScreen(
             )
         }
     ) { innerPadding ->
+        val locations by viewModel.availableLocations.collectAsState()
         ItemEntryBody(
             locationUiState = viewModel.locationUiState,
+            availableLocations = locations,
             onItemValueChange = viewModel::updateUiState,
             onSaveClick = {
                 // Note: If the user rotates the screen very fast, the operation may get cancelled
@@ -105,6 +110,7 @@ fun LocationEntryScreen(
 @Composable
 fun ItemEntryBody(
     locationUiState: LocationUiState,
+    availableLocations:List<Location>,
     onItemValueChange: (LocationDetails) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -115,6 +121,7 @@ fun ItemEntryBody(
     ) {
         LocationCreation(
             locationDetails = locationUiState.locationDetails,
+            availableLocations = availableLocations,
             onValueChange = onItemValueChange,
             modifier = Modifier.fillMaxWidth()
         )
@@ -218,10 +225,11 @@ fun ItemInputForm(
 @Composable
 private fun ItemEntryScreenPreview() {
     InventoryTheme {
-        ItemEntryBody(locationUiState = LocationUiState(
-            LocationDetails(
-                name = "Fridge", parent = "Kitchen", image = "Image Todo"
-            )
-        ), onItemValueChange = {}, onSaveClick = {})
+        ItemEntryBody(
+            locationUiState = LocationUiState(
+                LocationDetails(name = "Fridge", parent = null, image = "Image Todo")),
+            availableLocations = listOf(),
+            onItemValueChange = {},
+            onSaveClick = {})
     }
 }

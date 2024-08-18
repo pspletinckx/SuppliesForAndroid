@@ -20,27 +20,41 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import be.pieterpletinckx.supplystorage.data.Item
 import be.pieterpletinckx.supplystorage.data.ItemsRepository
 import be.pieterpletinckx.supplystorage.data.Location
 import be.pieterpletinckx.supplystorage.data.LocationRepository
-import java.text.NumberFormat
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+
+private const val TIMEOUT_MILLIS = 5_000L
 
 /**
  * ViewModel to validate and insert items in the Room database.
  */
 class LocationEntryViewModel(
     private val itemsRepository: ItemsRepository,
-    private val locationRepository: LocationRepository) : ViewModel() {
+    private val locationRepository: LocationRepository
+) : ViewModel() {
 
     var locationUiState by mutableStateOf(LocationUiState())
         private set
 
     fun updateUiState(locationDetails: LocationDetails) {
-        locationUiState =  LocationUiState(
+        locationUiState = LocationUiState(
             locationDetails = locationDetails,
-            isEntryValid = validateInput(locationDetails))
+            isEntryValid = validateInput(locationDetails)
+        )
     }
+
+    val availableLocations: StateFlow<List<Location>> = locationRepository.getAllItemsStream()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+            initialValue = listOf(Location(locationName = "house", image = ""))
+        )
 
     private fun validateInput(uiState: LocationDetails = locationUiState.locationDetails): Boolean {
         return with(uiState) {
@@ -77,11 +91,11 @@ data class LocationUiState(
     val isEntryValid: Boolean = false
 )
 
-data class LocationDetails (
-    val id: Int=0,
-    val name: String="",
-    val parent: String = "",
-    val image : String = "",
+data class LocationDetails(
+    val id: Int = 0,
+    val name: String = "",
+    val parent: Int? = null,
+    val image: String = "",
 )
 
 /**
@@ -100,7 +114,7 @@ fun ItemDetails.toItem(): Item = Item(
 fun LocationDetails.toItem(): Location = Location(
     locationId = id,
     locationName = name,
-    parentId = parent.toIntOrNull() ?: 0,
+    parentId = parent,
     image = image
 )
 
@@ -131,6 +145,6 @@ fun Item.toItemDetails(): ItemDetails = ItemDetails(
 fun Location.toLocationDetails(): LocationDetails = LocationDetails(
     id = locationId,
     name = locationName,
-    parent = parentId.toString(),
+    parent = parentId,
     image = image
 )

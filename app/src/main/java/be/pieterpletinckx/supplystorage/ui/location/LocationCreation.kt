@@ -17,12 +17,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Datasource
+import be.pieterpletinckx.supplystorage.data.Location
 import be.pieterpletinckx.supplystorage.ui.DynamicSelectTextField
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 
 @Composable
 fun LocationCreation(
     locationDetails: LocationDetails,
+    availableLocations: List<Location>,
     modifier: Modifier = Modifier,
     onValueChange: (LocationDetails) -> Unit = {},
     isValid: (Boolean) -> Unit = {},
@@ -45,17 +47,9 @@ fun LocationCreation(
             enabled = enabled,
             singleLine = true
         )
-
-        DynamicSelectTextField(
-            selectedValue = locationDetails.parent,
-            options = Datasource().loadCategories().map { stringResource(it.name) },
-            label = stringResource(id = R.string.location_parent_opt),
-            onValueChangedEvent = { onValueChange(locationDetails.copy(parent = it)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            )
+        LocationSelectTextField(
+            availableLocations = availableLocations,
+            onValueChange = { onValueChange(locationDetails.copy(parent = it.locationId))}
         )
         OutlinedTextField(
             value = locationDetails.image,
@@ -85,6 +79,10 @@ fun LocationCreation(
 @Composable
 private fun ItemEntryScreenPreview() {
     InventoryTheme {
-        LocationCreation(LocationDetails(0,"","",""), onValueChange = {}, enabled = true)
+        LocationCreation(
+            LocationDetails(0,"",null,""),
+            availableLocations= listOf(),
+            onValueChange = {},
+            enabled = true)
     }
 }

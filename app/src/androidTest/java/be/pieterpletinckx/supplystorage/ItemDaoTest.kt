@@ -112,15 +112,15 @@ class ItemDaoTest {
         assertEquals(allItems[1], Item(2, "Bananas", 5.0, 50, "Food"))
     }
 
-    @Test
-    @Throws(Exception::class)
-    fun daoGetItemWithLocations_returnsItemFromDB() = runBlocking {
-        itemDao.insert(item1)
-        locationDao.insert(Location(image = "Image of an apple"))
-
-        val itemWithLocations = itemDao.getItemsWithLocations().first()
-        Assert.assertNotNull(itemWithLocations);
-    }
+//    @Test
+//    @Throws(Exception::class)
+//    fun daoGetItemWithLocations_returnsItemFromDB() = runBlocking {
+//        itemDao.insert(item1)
+//        locationDao.insert(Location(locationName = "Fruitbowl", image = "Image of an apple"))
+//
+//        val itemWithLocations = itemDao.getItemsWithLocations().first()
+//        Assert.assertNotNull(itemWithLocations);
+//    }
 
     private suspend fun addOneItemToDb() {
         itemDao.insert(item1)

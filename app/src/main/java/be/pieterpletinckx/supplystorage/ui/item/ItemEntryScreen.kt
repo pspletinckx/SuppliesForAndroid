@@ -42,9 +42,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -62,8 +59,6 @@ import be.pieterpletinckx.supplystorage.ui.DynamicSelectTextField
 import be.pieterpletinckx.supplystorage.ui.location.LocationsEntryList
 import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import java.util.Currency
 import java.util.Locale
@@ -212,7 +207,10 @@ fun ItemInputForm(
             enabled = enabled,
             singleLine = true
         )
-        LocationsEntryList(locations = availableLocations)
+        LocationsEntryList(
+            availableLocations = availableLocations,
+            onValueChange = {}
+        )
         if (enabled) {
             Text(
                 text = stringResource(R.string.required_fields),
