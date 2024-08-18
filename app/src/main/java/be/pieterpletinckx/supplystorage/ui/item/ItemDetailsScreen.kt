@@ -59,13 +59,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.R
-import be.pieterpletinckx.supplystorage.data.Item
+import be.pieterpletinckx.supplystorage.data.Items.Item
 import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
-import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsUiState
-import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsViewModel
-import be.pieterpletinckx.supplystorage.ui.item.formatedPrice
-import be.pieterpletinckx.supplystorage.ui.item.toItem
 import be.pieterpletinckx.supplystorage.ui.location.ItemsPerLocationDetails
 import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme

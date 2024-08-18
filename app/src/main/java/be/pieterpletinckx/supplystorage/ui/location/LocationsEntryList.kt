@@ -23,10 +23,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.pieterpletinckx.supplystorage.R
-import be.pieterpletinckx.supplystorage.data.Item
-import be.pieterpletinckx.supplystorage.data.ItemsPerLocation
-import be.pieterpletinckx.supplystorage.data.Location
-import be.pieterpletinckx.supplystorage.ui.DynamicSelectTextField
+import be.pieterpletinckx.supplystorage.data.Location.Location
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 
 @Composable

@@ -1,4 +1,4 @@
-package be.pieterpletinckx.supplystorage.data
+package be.pieterpletinckx.supplystorage.data.Location
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -5,8 +5,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import be.pieterpletinckx.supplystorage.data.InventoryDatabase
-import be.pieterpletinckx.supplystorage.data.Item
-import be.pieterpletinckx.supplystorage.data.ItemDao
+import be.pieterpletinckx.supplystorage.data.Items.Item
+import be.pieterpletinckx.supplystorage.data.Items.ItemDao
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After

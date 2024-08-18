@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Datasource
-import be.pieterpletinckx.supplystorage.data.Item
+import be.pieterpletinckx.supplystorage.data.Items.Item
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
 import be.pieterpletinckx.supplystorage.ui.category.CategoryList
 import be.pieterpletinckx.supplystorage.ui.home.HomeBody

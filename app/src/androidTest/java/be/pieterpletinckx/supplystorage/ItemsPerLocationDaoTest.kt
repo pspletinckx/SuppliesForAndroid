@@ -22,15 +22,12 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import be.pieterpletinckx.supplystorage.data.InventoryDatabase
-import be.pieterpletinckx.supplystorage.data.Item
-import be.pieterpletinckx.supplystorage.data.ItemDao
-import be.pieterpletinckx.supplystorage.data.ItemPerLocationRel
-import be.pieterpletinckx.supplystorage.data.ItemsPerLocation
-import be.pieterpletinckx.supplystorage.data.ItemsPerLocationDao
-import be.pieterpletinckx.supplystorage.data.Location
-import be.pieterpletinckx.supplystorage.data.LocationDao
+import be.pieterpletinckx.supplystorage.data.Items.Item
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemPerLocationRel
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemsPerLocation
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemsPerLocationDao
+import be.pieterpletinckx.supplystorage.data.Location.Location
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert
@@ -77,18 +74,24 @@ class ItemsPerLocationDaoTest {
 //        itemDao.insert(item1)
 //        itemDao.insert(item2)
 
-        itemsPerLocationDao.insert(ItemsPerLocation(
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
             locationFkId =  location1.locationId,
             itemId = item2.itemId,
-            quantity = 4))
-        itemsPerLocationDao.insert(ItemsPerLocation(
+            quantity = 4)
+        )
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
             locationFkId =  location1.locationId,
             itemId = item1.itemId,
-            quantity = 5))
-        itemsPerLocationDao.insert(ItemsPerLocation(
+            quantity = 5)
+        )
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
             locationFkId =  location1.locationId,
             itemId = item1.itemId,
-            quantity = 4))
+            quantity = 4)
+        )
 
         val allItemsPerLocations = itemsPerLocationDao.getAllItemsPerLocations().first()
 

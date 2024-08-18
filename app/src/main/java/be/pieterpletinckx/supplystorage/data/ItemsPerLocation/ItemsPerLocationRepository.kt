@@ -1,4 +1,4 @@
-package be.pieterpletinckx.supplystorage.data
+package be.pieterpletinckx.supplystorage.data.ItemsPerLocation
 
 import kotlinx.coroutines.flow.Flow
 

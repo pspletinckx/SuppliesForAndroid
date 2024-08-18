@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package be.pieterpletinckx.supplystorage.data
+package be.pieterpletinckx.supplystorage.data.Items
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

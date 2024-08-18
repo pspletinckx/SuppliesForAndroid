@@ -19,7 +19,7 @@ package be.pieterpletinckx.supplystorage.ui.item
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import be.pieterpletinckx.supplystorage.data.ItemsRepository
+import be.pieterpletinckx.supplystorage.data.Items.ItemsRepository
 import be.pieterpletinckx.supplystorage.ui.location.ItemsPerLocationDetails
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

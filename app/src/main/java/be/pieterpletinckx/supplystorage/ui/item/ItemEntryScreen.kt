@@ -53,7 +53,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Datasource
-import be.pieterpletinckx.supplystorage.data.Location
+import be.pieterpletinckx.supplystorage.data.Location.Location
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
 import be.pieterpletinckx.supplystorage.ui.DynamicSelectTextField
 import be.pieterpletinckx.supplystorage.ui.location.LocationsEntryList

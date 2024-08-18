@@ -1,7 +1,9 @@
-package be.pieterpletinckx.supplystorage.data
+package be.pieterpletinckx.supplystorage.data.ItemsPerLocation
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import be.pieterpletinckx.supplystorage.data.Items.Item
+import be.pieterpletinckx.supplystorage.data.Location.Location
 
 data class ItemPerLocationRel(
     @Embedded val itemsPerLocation: ItemsPerLocation,

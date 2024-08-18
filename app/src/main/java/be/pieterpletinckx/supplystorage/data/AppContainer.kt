@@ -17,6 +17,12 @@
 package be.pieterpletinckx.supplystorage.data
 
 import android.content.Context
+import be.pieterpletinckx.supplystorage.data.Items.ItemsRepository
+import be.pieterpletinckx.supplystorage.data.Items.OfflineItemsRepository
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemsPerLocationConcreteRepository
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemsPerLocationRepository
+import be.pieterpletinckx.supplystorage.data.Location.LocationConcreteRepository
+import be.pieterpletinckx.supplystorage.data.Location.LocationRepository
 
 /**
  * App container for Dependency injection.

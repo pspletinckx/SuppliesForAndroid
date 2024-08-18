@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package be.pieterpletinckx.supplystorage.data
+package be.pieterpletinckx.supplystorage.data.Items
 
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemPerLocationRel
 import kotlinx.coroutines.flow.Flow
 
 class OfflineItemsRepository(private val itemDao: ItemDao) : ItemsRepository {

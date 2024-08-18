@@ -10,7 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import be.pieterpletinckx.supplystorage.R
-import be.pieterpletinckx.supplystorage.data.Location
+import be.pieterpletinckx.supplystorage.data.Location.Location
 import be.pieterpletinckx.supplystorage.ui.DynamicSelectTextField
 
 @Composable

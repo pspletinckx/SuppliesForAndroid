@@ -20,6 +20,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import be.pieterpletinckx.supplystorage.data.Items.Item
+import be.pieterpletinckx.supplystorage.data.Items.ItemDao
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemsPerLocation
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemsPerLocationDao
+import be.pieterpletinckx.supplystorage.data.Location.Location
+import be.pieterpletinckx.supplystorage.data.Location.LocationDao
 
 /**
  * Database class with a singleton Instance object.
