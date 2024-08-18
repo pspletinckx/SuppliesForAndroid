@@ -22,6 +22,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import be.pieterpletinckx.supplystorage.data.Item
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocation
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocationRepository
 import be.pieterpletinckx.supplystorage.data.ItemsRepository
 import be.pieterpletinckx.supplystorage.data.Location
 import be.pieterpletinckx.supplystorage.data.LocationRepository
@@ -36,7 +38,10 @@ import java.text.NumberFormat
 /**
  * ViewModel to validate and insert items in the Room database.
  */
-class ItemEntryViewModel(private val itemsRepository: ItemsRepository, private val locationRepository: LocationRepository) : ViewModel() {
+class ItemEntryViewModel(
+    private val itemsRepository: ItemsRepository,
+    private val locationRepository: LocationRepository,
+    private val itemsPerLocationRepository: ItemsPerLocationRepository) : ViewModel() {
 
 
     /**
@@ -71,6 +76,7 @@ class ItemEntryViewModel(private val itemsRepository: ItemsRepository, private v
     suspend fun saveItem() {
         if (validateInput()) {
             itemsRepository.insertItem(itemUiState.itemDetails.toItem())
+            itemsPerLocationRepository.insertItems(itemUiState.itemDetails.toItemsPerLocations())
         }
     }
 
@@ -109,6 +115,16 @@ fun ItemDetails.toItem(): Item = Item(
     category = category,
     quantity = 0 // TODO aggregate
 )
+
+fun ItemDetails.toItemsPerLocations(): List<ItemsPerLocation> {
+    val templateItem = ItemsPerLocation(itemId = id, locationFkId = 0, quantity = 0)
+    return  location.map {
+        templateItem.copy(
+            locationFkId = it.locationFkId ?: 0,
+            quantity = it.quantity.toIntOrNull() ?: 0
+        )
+    }
+}
 
 fun Item.formatedPrice(): String {
     return NumberFormat.getCurrencyInstance().format(price)

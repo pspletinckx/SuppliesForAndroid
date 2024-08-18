@@ -24,6 +24,7 @@ import android.content.Context
 interface AppContainer {
     val itemsRepository: ItemsRepository
     val locationRepository: LocationRepository
+    val itemsPerLocationRepository: ItemsPerLocationRepository
 }
 
 /**
@@ -39,5 +40,9 @@ class AppDataContainer(private val context: Context) : AppContainer {
 
     override val locationRepository: LocationRepository by lazy {
         LocationConcreteRepository(InventoryDatabase.getDatabase(context).locationDao())
+    }
+
+    override val itemsPerLocationRepository: ItemsPerLocationRepository by lazy {
+        ItemsPerLocationConcreteRepository(InventoryDatabase.getDatabase(context).itemsPerLocationDao())
     }
 }

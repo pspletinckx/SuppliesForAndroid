@@ -19,7 +19,10 @@ interface ItemsPerLocationDao {
     fun getLocation(id: Int): Flow<ItemsPerLocation>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(location: ItemsPerLocation)
+    suspend fun insert(itemsPerLocation: ItemsPerLocation)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(itemsPerLocations: List<ItemsPerLocation>)
 
     @Update
     suspend fun update(location: ItemsPerLocation)
