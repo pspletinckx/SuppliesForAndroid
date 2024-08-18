@@ -15,4 +15,7 @@ data class ItemPerLocationRel(
         entityColumn = "itemId",
     )
     val item: Item,
-)
+) {
+    val quantity : Int
+        get() = this.itemsPerLocation.quantity
+}

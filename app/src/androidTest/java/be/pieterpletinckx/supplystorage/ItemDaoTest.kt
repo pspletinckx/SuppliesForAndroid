@@ -17,12 +17,15 @@
 package be.pieterpletinckx.supplystorage
 
 import android.content.Context
+import androidx.compose.ui.util.fastJoinToString
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import be.pieterpletinckx.supplystorage.data.InventoryDatabase
 import be.pieterpletinckx.supplystorage.data.Item
 import be.pieterpletinckx.supplystorage.data.ItemDao
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocation
+import be.pieterpletinckx.supplystorage.data.ItemsPerLocationDao
 import be.pieterpletinckx.supplystorage.data.Location
 import be.pieterpletinckx.supplystorage.data.LocationDao
 import kotlinx.coroutines.flow.first
@@ -41,7 +44,10 @@ class ItemDaoTest {
 
     private lateinit var itemDao: ItemDao
     private lateinit var locationDao: LocationDao
+    private lateinit var itemsPerLocationDao: ItemsPerLocationDao
     private lateinit var inventoryDatabase: InventoryDatabase
+    private val location1 = Location(10, "Fruit Basket", image = "image of an Apple")
+    private val location2 = Location(20, "Fridge", image = "image of a Banana")
     private val item1 = Item(1, "Apples", 10.0, 20, "Food")
     private val item2 = Item(2, "Bananas", 15.0, 97, "Food")
 
@@ -56,6 +62,7 @@ class ItemDaoTest {
             .build()
         itemDao = inventoryDatabase.itemDao()
         locationDao = inventoryDatabase.locationDao()
+        itemsPerLocationDao = inventoryDatabase.itemsPerLocationDao()
     }
 
     @After
@@ -112,16 +119,6 @@ class ItemDaoTest {
         assertEquals(allItems[1], Item(2, "Bananas", 5.0, 50, "Food"))
     }
 
-//    @Test
-//    @Throws(Exception::class)
-//    fun daoGetItemWithLocations_returnsItemFromDB() = runBlocking {
-//        itemDao.insert(item1)
-//        locationDao.insert(Location(locationName = "Fruitbowl", image = "Image of an apple"))
-//
-//        val itemWithLocations = itemDao.getItemsWithLocations().first()
-//        Assert.assertNotNull(itemWithLocations);
-//    }
-
     private suspend fun addOneItemToDb() {
         itemDao.insert(item1)
     }
@@ -129,5 +126,169 @@ class ItemDaoTest {
     private suspend fun addTwoItemsToDb() {
         itemDao.insert(item1)
         itemDao.insert(item2)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun daoGetItemWithLocations_returnsItemFromDB_id() = runBlocking {
+        val location1 = Location(10, "Kitchen", image = "image of an Apple")
+        val location2 = Location(20, "Storage", image = "image of a Banana")
+        val item1 = Item(1, "Apples", 10.0, 20, "Food")
+        val item2 = Item(2, "Bananas", 15.0, 97, "Food")
+
+        locationDao.insert(location1)
+        locationDao.insert(location2)
+        itemDao.insert(item1)
+        itemDao.insert(item2)
+
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
+                locationFkId = location1.locationId,
+                itemId = item2.itemId,
+                quantity = 4
+            )
+        )
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
+                locationFkId = location1.locationId,
+                itemId = item1.itemId,
+                quantity = 5
+            )
+        )
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
+                locationFkId = location1.locationId,
+                itemId = item1.itemId,
+                quantity = 4
+            )
+        )
+
+//        val allItemsPerLocations = itemsPerLocationDao.getItemItemsPerLocation(1).first()
+//
+//        val debugString =
+//            "Locations: " + allItemsPerLocations.map { it.location.locationId }.fastJoinToString() +
+//                    "Items: " + allItemsPerLocations.map { it.itemsPerLocation.quantity.toString() + it.item.name }
+//                .fastJoinToString()
+//
+//        Assert.assertEquals(debugString, 2, allItemsPerLocations.size)
+//        Assert.assertEquals(
+//            debugString,
+//            2,
+//            allItemsPerLocations.filter { it.item.name == "Apples" }.size
+//        )
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun daoGetItemWithLocations_returnsItemFromDB_id_item() = runBlocking {
+        val location1 = Location(10, "Kitchen", image = "image of an Apple")
+        val location2 = Location(20, "Storage", image = "image of a Banana")
+        val item1 = Item(1, "Apples", 10.0, 20, "Food")
+        val item2 = Item(2, "Bananas", 15.0, 97, "Food")
+
+        locationDao.insert(location1)
+        locationDao.insert(location2)
+        itemDao.insert(item1)
+        itemDao.insert(item2)
+
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
+                locationFkId = location1.locationId,
+                itemId = item2.itemId,
+                quantity = 4
+            )
+        )
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
+                locationFkId = location1.locationId,
+                itemId = item1.itemId,
+                quantity = 5
+            )
+        )
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
+                locationFkId = location1.locationId,
+                itemId = item1.itemId,
+                quantity = 4
+            )
+        )
+
+        val allItemsPerLocations = itemDao.getLocationItemsPerLocation(1).first()
+
+        val debugString =
+            "Locations: " + allItemsPerLocations.map { it.location.locationId }.fastJoinToString() +
+                    "Items: " + allItemsPerLocations.map { it.itemsPerLocation.quantity.toString() + it.item.name }
+                .fastJoinToString()
+
+        Assert.assertEquals(debugString, 2, allItemsPerLocations.size)
+        Assert.assertEquals(
+            debugString,
+            2,
+            allItemsPerLocations.filter { it.item.name == "Apples" }.size
+        )
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun daoGetItemWithLocations_returnsItemFromDB_id_itemtest() = runBlocking {
+        val location1 = Location(10, "Kitchen", image = "image of an Apple")
+        val location2 = Location(20, "Storage", image = "image of a Banana")
+        val item1 = Item(0, "Apples", 10.0, 20, "Food")
+        val item2 = Item(0, "Bananas", 15.0, 97, "Food")
+
+        locationDao.insert(location1)
+        locationDao.insert(location2)
+        itemDao.insert(item1)
+        itemDao.insert(item2)
+
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
+                locationFkId = location1.locationId,
+                itemId = item2.itemId,
+                quantity = 4
+            )
+        )
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
+                locationFkId = location1.locationId,
+                itemId = item1.itemId,
+                quantity = 5
+            )
+        )
+        itemsPerLocationDao.insert(
+            ItemsPerLocation(
+                locationFkId = location1.locationId,
+                itemId = item1.itemId,
+                quantity = 4
+            )
+        )
+
+        val allItemsPerLocations = itemDao.getLocationItemsPerLocation(1).first()
+
+        val debugString =
+            "Locations: " + allItemsPerLocations.map { it.location.locationId }.fastJoinToString() +
+                    "Items: " + allItemsPerLocations.map { it.itemsPerLocation.quantity.toString() + it.item.name }
+                .fastJoinToString()
+
+        Assert.assertEquals(debugString, 2, allItemsPerLocations.size)
+        Assert.assertEquals(
+            debugString,
+            2,
+            allItemsPerLocations.filter { it.item.name == "Apples" }.size
+        )
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun daoGetItemWithLocations_LongReturn() = runBlocking {
+        val item1 = Item(1, "Apples", 10.0, 20, "Food")
+        val item2 = Item(0, "Bananas", 15.0, 97, "Food")
+//        itemDao.insert(item1)
+        val insert = itemDao.insert(item1)
+        Assert.assertNotNull(insert)
+        Assert.assertEquals(1, insert)
+        Assert.assertEquals(-1, itemDao.insert(item1))
+        Assert.assertEquals(2, itemDao.insert(item2))
+
     }
 }

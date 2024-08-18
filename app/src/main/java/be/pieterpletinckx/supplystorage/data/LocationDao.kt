@@ -26,4 +26,8 @@ interface LocationDao {
 
     @Delete
     suspend fun delete(location: Location)
+
+    @Transaction
+    @Query("SELECT * FROM items_per_location WHERE itemId = :id")
+    fun getItemItemsPerLocation(id: Int): Flow<List<ItemPerLocationRel>>
 }

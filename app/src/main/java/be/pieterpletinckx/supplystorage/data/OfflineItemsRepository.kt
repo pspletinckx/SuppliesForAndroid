@@ -23,7 +23,9 @@ class OfflineItemsRepository(private val itemDao: ItemDao) : ItemsRepository {
 
     override fun getItemStream(id: Int): Flow<Item?> = itemDao.getItem(id)
 
-    override suspend fun insertItem(item: Item) = itemDao.insert(item)
+    override fun getLocationItemsPerLocation(id: Int): Flow<List<ItemPerLocationRel>> = itemDao.getLocationItemsPerLocation(id)
+
+    override suspend fun insertItem(item: Item): Long = itemDao.insert(item)
 
     override suspend fun deleteItem(item: Item) = itemDao.delete(item)
 

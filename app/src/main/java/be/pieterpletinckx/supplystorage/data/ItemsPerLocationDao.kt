@@ -36,5 +36,6 @@ interface ItemsPerLocationDao {
 
     @Transaction
     @Query("SELECT * FROM items_per_location WHERE locationFkId = :id")
-    fun getAllItemsPerLocation(id: Int): Flow<List<ItemPerLocationRel>>
+    fun getLocationItemsPerLocation(id: Int): Flow<List<ItemPerLocationRel>>
+
 }

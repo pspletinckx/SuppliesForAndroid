@@ -16,7 +16,6 @@
 
 package be.pieterpletinckx.supplystorage.data
 
-import be.pieterpletinckx.supplystorage.data.Item
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -36,7 +35,7 @@ interface ItemsRepository {
     /**
      * Insert item in the data source
      */
-    suspend fun insertItem(item: Item)
+    suspend fun insertItem(item: Item): Long
 
     /**
      * Delete item from the data source
@@ -47,8 +46,6 @@ interface ItemsRepository {
      * Update item in the data source
      */
     suspend fun updateItem(item: Item)
-//
-//    fun getAllLocations(): Flow<Location>
-//
-//    fun getAllItemsPerLocations()
+
+    fun getLocationItemsPerLocation(id: Int): Flow<List<ItemPerLocationRel>>
 }

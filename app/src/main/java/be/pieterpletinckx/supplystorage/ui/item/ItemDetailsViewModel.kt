@@ -19,8 +19,11 @@ package be.pieterpletinckx.supplystorage.ui.item
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import be.pieterpletinckx.supplystorage.data.Item
+import be.pieterpletinckx.supplystorage.data.ItemPerLocationRel
 import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsDestination
 import be.pieterpletinckx.supplystorage.data.ItemsRepository
+import be.pieterpletinckx.supplystorage.ui.location.ItemsPerLocationDetails
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -42,16 +45,43 @@ class ItemDetailsViewModel(
      * Holds the item details ui state. The data is retrieved from [ItemsRepository] and mapped to
      * the UI state.
      */
-    val uiState: StateFlow<ItemDetailsUiState> =
-        itemsRepository.getItemStream(itemId)
-            .filterNotNull()
-            .map {
-                ItemDetailsUiState(outOfStock = it.quantity <= 0, itemDetails = it.toItemDetails())
-            }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-                initialValue = ItemDetailsUiState()
-            )
+//    val uiState: StateFlow<ItemDetailsUiState> = itemsRepository.getItemStream(itemId)
+//            .filterNotNull()
+//            .map {
+//                ItemDetailsUiState(
+//                    outOfStock = it.quantity <= 0,
+//                    itemDetails = it.toItemDetails())
+//            }.stateIn(
+//                scope = viewModelScope,
+//                started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+//                initialValue = ItemDetailsUiState()
+//            )
+    val uiState: StateFlow<ItemDetailsUiState> = itemsRepository.getLocationItemsPerLocation(itemId)
+//        .filterNotNull()
+        .map { val item = it[0].item
+            ItemDetailsUiState(
+                outOfStock = it.map { it.itemsPerLocation.quantity }.sum() <= 0, // boolean
+                itemDetails = ItemDetails(
+                    id = item.itemId,
+                    name = item.name,
+                    price = item.price.toString(),
+                    category = item.category,
+                    location = it.map { location -> ItemsPerLocationDetails(
+                            locationFkId = location.location.locationId,
+                            locationName = location.location.locationName,
+                            quantity = location.itemsPerLocation.quantity.toString()) }
+
+//            val id: Int = 0,
+//            val name: String = "",
+//            val price: String = "",
+//            val category: String = "",
+//            val location: List<ItemsPerLocationDetails> = listOf(),
+                )) //
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+            initialValue = ItemDetailsUiState()
+        )
 
     /**
      * Reduces the item quantity by one and update the [ItemsRepository]'s data source.

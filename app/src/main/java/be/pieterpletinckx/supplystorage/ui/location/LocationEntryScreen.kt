@@ -59,7 +59,7 @@ import java.util.Locale
 
 object LocationEntryDestination : NavigationDestination {
     override val route = "location_entry"
-    override val titleRes = R.string.item_entry_title
+    override val titleRes = R.string.location_entry_title
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

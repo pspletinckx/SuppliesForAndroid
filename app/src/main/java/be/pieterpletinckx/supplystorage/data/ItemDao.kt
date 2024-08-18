@@ -40,7 +40,7 @@ interface ItemDao {
     // Specify the conflict strategy as IGNORE, when the user tries to add an
     // existing Item into the database Room ignores the conflict.
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(item: Item)
+    suspend fun insert(item: Item) : Long
 
     @Update
     suspend fun update(item: Item)
@@ -48,6 +48,7 @@ interface ItemDao {
     @Delete
     suspend fun delete(item: Item)
 
-//    @Insert(onConflict = OnConflictStrategy.IGNORE)
-//    suspend fun insert(itemWithLocations: ItemWithLocations)
+    @Transaction
+    @Query("SELECT * FROM items_per_location WHERE itemId = :id")
+    fun getLocationItemsPerLocation(id: Int): Flow<List<ItemPerLocationRel>>
 }

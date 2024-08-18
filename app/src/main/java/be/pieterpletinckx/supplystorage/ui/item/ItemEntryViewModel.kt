@@ -75,8 +75,10 @@ class ItemEntryViewModel(
      */
     suspend fun saveItem() {
         if (validateInput()) {
-            itemsRepository.insertItem(itemUiState.itemDetails.toItem())
-            itemsPerLocationRepository.insertItems(itemUiState.itemDetails.toItemsPerLocations())
+            val generatedId: Long = itemsRepository.insertItem(itemUiState.itemDetails.toItem())
+            itemsPerLocationRepository.insertItems(itemUiState.itemDetails.toItemsPerLocations()
+                .map { it.copy(itemId = generatedId.toInt()) }
+            )
         }
     }
 
