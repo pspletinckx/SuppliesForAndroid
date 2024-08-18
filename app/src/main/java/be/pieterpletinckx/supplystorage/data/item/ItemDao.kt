@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package be.pieterpletinckx.supplystorage.data.Items
+package be.pieterpletinckx.supplystorage.data.item
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -23,7 +23,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemPerLocationRel
+import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemPerLocationRel
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -2,8 +2,8 @@ package be.pieterpletinckx.supplystorage.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import be.pieterpletinckx.supplystorage.data.Items.Item
-import be.pieterpletinckx.supplystorage.data.Items.ItemsRepository
+import be.pieterpletinckx.supplystorage.data.item.Item
+import be.pieterpletinckx.supplystorage.data.item.ItemsRepository
 import be.pieterpletinckx.supplystorage.ui.home.HomeUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

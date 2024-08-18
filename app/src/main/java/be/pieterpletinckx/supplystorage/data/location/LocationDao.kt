@@ -1,4 +1,4 @@
-package be.pieterpletinckx.supplystorage.data.Location
+package be.pieterpletinckx.supplystorage.data.location
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -7,9 +7,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemPerLocationRel
+import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemPerLocationRel
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Data access object for Location
+ */
 @Dao
 interface LocationDao {
 

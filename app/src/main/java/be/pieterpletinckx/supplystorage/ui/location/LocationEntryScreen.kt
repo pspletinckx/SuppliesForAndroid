@@ -41,7 +41,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.R
-import be.pieterpletinckx.supplystorage.data.Location.Location
+import be.pieterpletinckx.supplystorage.data.location.Location
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
 import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
@@ -125,91 +125,6 @@ fun ItemEntryBody(
         }
     }
 }
-
-//@Composable
-//fun ItemInputForm(
-//    itemDetails: ItemDetails,
-//    modifier: Modifier = Modifier,
-//    onValueChange: (ItemDetails) -> Unit = {},
-//    enabled: Boolean = true
-//) {
-//    Column(
-//        modifier = modifier,
-//        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
-//    ) {
-//        OutlinedTextField(
-//            value = itemDetails.name,
-//            onValueChange = { onValueChange(itemDetails.copy(name = it)) },
-//            label = { Text(stringResource(R.string.item_name_req)) },
-//            colors = OutlinedTextFieldDefaults.colors(
-//                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//            ),
-//            modifier = Modifier.fillMaxWidth(),
-//            enabled = enabled,
-//            singleLine = true
-//        )
-//
-//        DynamicSelectTextField(
-//            selectedValue = itemDetails.category,
-//            options = Datasource().loadCategories().map { stringResource(it.name) },
-//            label = stringResource(id = R.string.item_category_req),
-//            onValueChangedEvent = { onValueChange(itemDetails.copy(category = it)) },
-//            colors = OutlinedTextFieldDefaults.colors(
-//                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//            )
-//        )
-//        OutlinedTextField(
-//            value = itemDetails.price,
-//            onValueChange = { onValueChange(itemDetails.copy(price = it)) },
-//            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-//            label = { Text(stringResource(R.string.item_price_req)) },
-//            colors = OutlinedTextFieldDefaults.colors(
-//                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//            ),
-//            leadingIcon = { Text(Currency.getInstance(Locale.getDefault()).symbol) },
-//            modifier = Modifier.fillMaxWidth(),
-//            enabled = enabled,
-//            singleLine = true
-//        )
-////        OutlinedTextField(
-////            value = itemDetails.quantity,
-////            onValueChange = { onValueChange(itemDetails.copy(quantity = it)) },
-////            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-////            label = { Text(stringResource(R.string.quantity_req)) },
-////            colors = OutlinedTextFieldDefaults.colors(
-////                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-////                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-////                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-////            ),
-////            modifier = Modifier.fillMaxWidth(),
-////            enabled = enabled,
-////            singleLine = true
-////        )
-//        DynamicSelectTextField(
-//            selectedValue = itemDetails.location,
-//            options = Datasource().loadCategories().map { stringResource(it.name) },
-//            label = stringResource(id = R.string.item_category_req),
-//            onValueChangedEvent = { onValueChange(itemDetails.copy(category = it)) },
-//            colors = OutlinedTextFieldDefaults.colors(
-//                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-//            )
-//        )
-//        if (enabled) {
-//            Text(
-//                text = stringResource(R.string.required_fields),
-//                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
-//            )
-//        }
-//    }
-//}
 
 @Preview(showBackground = true)
 @Composable

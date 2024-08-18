@@ -1,7 +1,10 @@
-package be.pieterpletinckx.supplystorage.data.ItemsPerLocation
+package be.pieterpletinckx.supplystorage.data.itemPerLocation
 
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Interface for ItemsPerLocation as DInjected in the UI
+ */
 interface ItemsPerLocationRepository {
     fun getAllItemsStream(): Flow<List<ItemsPerLocation>>
 

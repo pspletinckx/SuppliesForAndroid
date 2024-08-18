@@ -16,7 +16,6 @@
 
 package be.pieterpletinckx.supplystorage.ui.home
 
-//import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -56,9 +55,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import be.pieterpletinckx.supplystorage.R
-import be.pieterpletinckx.supplystorage.data.Items.Item
 import be.pieterpletinckx.supplystorage.InventoryTopAppBar
+import be.pieterpletinckx.supplystorage.R
+import be.pieterpletinckx.supplystorage.data.item.Item
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
 import be.pieterpletinckx.supplystorage.ui.item.formatedPrice
 import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
@@ -70,8 +69,9 @@ object HomeDestination : NavigationDestination {
 }
 
 /**
- * Entry route for Home screen
+ * Entry route for Home screen, currently replaced by SearchByNameScreen
  */
+@Deprecated("use SearchByNameScreen")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(

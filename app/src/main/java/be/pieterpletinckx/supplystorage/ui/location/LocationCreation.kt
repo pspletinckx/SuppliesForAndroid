@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import be.pieterpletinckx.supplystorage.R
-import be.pieterpletinckx.supplystorage.data.Location.Location
+import be.pieterpletinckx.supplystorage.data.location.Location
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 
 @Composable

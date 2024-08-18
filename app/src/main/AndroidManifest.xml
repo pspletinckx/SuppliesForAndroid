@@ -14,11 +14,6 @@
         android:theme="@style/Theme.SupplyStorage"
         tools:targetApi="31">
         <activity
-            android:name=".ui.category.CategoryComposable"
-            android:exported="false"
-            android:label="@string/title_activity_category_composable"
-            android:theme="@style/Theme.SupplyStorage" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"

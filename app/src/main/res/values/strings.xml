@@ -42,4 +42,5 @@
     <string name="location_parent_opt">Inside another storage ? (optional)</string>
     <string name="location_image_opt">Image (optional)</string>
     <string name="location_entry_title">Add Storage Location</string>
+    <string name="tooltip_location_button_bellow">Create a Location below</string>
 </resources>

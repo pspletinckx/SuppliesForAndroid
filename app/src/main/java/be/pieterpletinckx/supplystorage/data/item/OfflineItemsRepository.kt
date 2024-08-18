@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
-package be.pieterpletinckx.supplystorage.data.Items
+package be.pieterpletinckx.supplystorage.data.item
 
-import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemPerLocationRel
+import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemPerLocationRel
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Concrete
+ */
 class OfflineItemsRepository(private val itemDao: ItemDao) : ItemsRepository {
+
     override fun getAllItemsStream(): Flow<List<Item>> = itemDao.getAllItems()
 
     override fun getItemStream(id: Int): Flow<Item?> = itemDao.getItem(id)

@@ -58,9 +58,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import be.pieterpletinckx.supplystorage.R
-import be.pieterpletinckx.supplystorage.data.Items.Item
 import be.pieterpletinckx.supplystorage.InventoryTopAppBar
+import be.pieterpletinckx.supplystorage.R
+import be.pieterpletinckx.supplystorage.data.item.Item
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
 import be.pieterpletinckx.supplystorage.ui.location.ItemsPerLocationDetails
 import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
@@ -74,6 +74,9 @@ object ItemDetailsDestination : NavigationDestination {
     val routeWithArgs = "$route/{$itemIdArg}"
 }
 
+/**
+ * Route for showing Item details including where they are stored
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItemDetailsScreen(

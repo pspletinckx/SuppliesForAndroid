@@ -10,9 +10,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import be.pieterpletinckx.supplystorage.R
-import be.pieterpletinckx.supplystorage.data.Location.Location
+import be.pieterpletinckx.supplystorage.data.location.Location
 import be.pieterpletinckx.supplystorage.ui.DynamicSelectTextField
 
+/**
+ * A more specific dropdown menu for the Location class
+ */
 @Composable
 fun LocationSelectTextField (
     availableLocations: List<Location>,

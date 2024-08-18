@@ -18,8 +18,8 @@ package be.pieterpletinckx.supplystorage.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import be.pieterpletinckx.supplystorage.data.Items.Item
-import be.pieterpletinckx.supplystorage.data.Items.ItemsRepository
+import be.pieterpletinckx.supplystorage.data.item.Item
+import be.pieterpletinckx.supplystorage.data.item.ItemsRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map

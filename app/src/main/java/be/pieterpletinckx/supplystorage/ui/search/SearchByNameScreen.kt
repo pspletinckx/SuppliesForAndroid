@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Datasource
-import be.pieterpletinckx.supplystorage.data.Items.Item
+import be.pieterpletinckx.supplystorage.data.item.Item
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
 import be.pieterpletinckx.supplystorage.ui.category.CategoryList
 import be.pieterpletinckx.supplystorage.ui.home.HomeBody
@@ -93,6 +93,9 @@ fun SearchByNameScreen(
     }
 }
 
+/**
+ * Contains the main searchbar + results + category construction
+ */
 @Composable
 fun SearchByName(
     itemList: List<Item>,
@@ -102,7 +105,6 @@ fun SearchByName(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ){
-    var term by remember { mutableStateOf("Hello") }
     Column (
         modifier = modifier
             .padding(20.dp)

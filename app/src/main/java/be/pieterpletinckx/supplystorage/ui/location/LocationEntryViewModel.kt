@@ -21,10 +21,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import be.pieterpletinckx.supplystorage.data.Items.Item
-import be.pieterpletinckx.supplystorage.data.Items.ItemsRepository
-import be.pieterpletinckx.supplystorage.data.Location.Location
-import be.pieterpletinckx.supplystorage.data.Location.LocationRepository
+import be.pieterpletinckx.supplystorage.data.item.Item
+import be.pieterpletinckx.supplystorage.data.item.ItemsRepository
+import be.pieterpletinckx.supplystorage.data.location.Location
+import be.pieterpletinckx.supplystorage.data.location.LocationRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn

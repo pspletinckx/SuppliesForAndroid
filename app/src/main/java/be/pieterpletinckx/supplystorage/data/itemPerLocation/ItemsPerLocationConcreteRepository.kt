@@ -1,7 +1,10 @@
-package be.pieterpletinckx.supplystorage.data.ItemsPerLocation
+package be.pieterpletinckx.supplystorage.data.itemPerLocation
 
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Concrete mapper for ItemsPerLocationRepo
+ */
 class ItemsPerLocationConcreteRepository (private val itemsPerLocationDao: ItemsPerLocationDao) :
     ItemsPerLocationRepository {
     override fun getAllItemsStream(): Flow<List<ItemsPerLocation>> = itemsPerLocationDao.getAllLocations()

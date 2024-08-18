@@ -1,4 +1,4 @@
-package be.pieterpletinckx.supplystorage.data.ItemsPerLocation
+package be.pieterpletinckx.supplystorage.data.itemPerLocation
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -9,6 +9,9 @@ import androidx.room.Transaction
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Data access object of for ItemsPerLocation
+ */
 @Dao
 interface ItemsPerLocationDao {
 

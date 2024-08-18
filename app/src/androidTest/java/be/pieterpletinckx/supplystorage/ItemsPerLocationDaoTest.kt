@@ -22,11 +22,11 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import be.pieterpletinckx.supplystorage.data.InventoryDatabase
-import be.pieterpletinckx.supplystorage.data.Items.Item
-import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemPerLocationRel
-import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemsPerLocation
-import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemsPerLocationDao
-import be.pieterpletinckx.supplystorage.data.Location.Location
+import be.pieterpletinckx.supplystorage.data.item.Item
+import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemPerLocationRel
+import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemsPerLocation
+import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemsPerLocationDao
+import be.pieterpletinckx.supplystorage.data.location.Location
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After

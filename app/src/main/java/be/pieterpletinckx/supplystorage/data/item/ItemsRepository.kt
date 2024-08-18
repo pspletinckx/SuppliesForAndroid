@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package be.pieterpletinckx.supplystorage.data.Items
+package be.pieterpletinckx.supplystorage.data.item
 
-import be.pieterpletinckx.supplystorage.data.ItemsPerLocation.ItemPerLocationRel
+import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemPerLocationRel
 import kotlinx.coroutines.flow.Flow
 
 /**

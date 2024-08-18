@@ -1,10 +1,14 @@
-package be.pieterpletinckx.supplystorage.data.ItemsPerLocation
+package be.pieterpletinckx.supplystorage.data.itemPerLocation
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import be.pieterpletinckx.supplystorage.data.Items.Item
-import be.pieterpletinckx.supplystorage.data.Location.Location
+import be.pieterpletinckx.supplystorage.data.item.Item
+import be.pieterpletinckx.supplystorage.data.location.Location
 
+/**
+ * RoomDB Relational class that pulls in both Location and Item objects,
+ * Used in multiple DOA depending on Query used
+ */
 data class ItemPerLocationRel(
     @Embedded val itemsPerLocation: ItemsPerLocation,
     @Relation(

@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package be.pieterpletinckx.supplystorage.data.Items
+package be.pieterpletinckx.supplystorage.data.item
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Entity data class represents a single row in the database.
+ * Item is a class representing the definition can have multiple of in your supply storage.
+ * Has a 1 to N relationship with a physical ItemPerLocation
  */
 @Entity(tableName = "items")
 data class Item(

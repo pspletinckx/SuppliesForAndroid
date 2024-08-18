@@ -23,9 +23,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.pieterpletinckx.supplystorage.R
-import be.pieterpletinckx.supplystorage.data.Location.Location
+import be.pieterpletinckx.supplystorage.data.location.Location
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 
+/**
+ * Composable that deals with adding the relationship between Item and Location
+ */
 @Composable
 fun LocationsEntryList(
     modifier: Modifier = Modifier,
@@ -96,7 +99,7 @@ fun LocationsEntryList(
                     .fillMaxWidth()
                     .weight(3f)
                     .padding(3.dp),
-                enabled = buttonActive
+                enabled = false
             ) {
                 Text(text = stringResource(R.string.location_create_new))
             }

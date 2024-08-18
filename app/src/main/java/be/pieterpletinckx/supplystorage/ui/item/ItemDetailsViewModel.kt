@@ -19,7 +19,7 @@ package be.pieterpletinckx.supplystorage.ui.item
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import be.pieterpletinckx.supplystorage.data.Items.ItemsRepository
+import be.pieterpletinckx.supplystorage.data.item.ItemsRepository
 import be.pieterpletinckx.supplystorage.ui.location.ItemsPerLocationDetails
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -41,17 +41,6 @@ class ItemDetailsViewModel(
      * Holds the item details ui state. The data is retrieved from [ItemsRepository] and mapped to
      * the UI state.
      */
-//    val uiState: StateFlow<ItemDetailsUiState> = itemsRepository.getItemStream(itemId)
-//            .filterNotNull()
-//            .map {
-//                ItemDetailsUiState(
-//                    outOfStock = it.quantity <= 0,
-//                    itemDetails = it.toItemDetails())
-//            }.stateIn(
-//                scope = viewModelScope,
-//                started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-//                initialValue = ItemDetailsUiState()
-//            )
     val uiState: StateFlow<ItemDetailsUiState> = itemsRepository.getLocationItemsPerLocation(itemId)
 //        .filterNotNull()
         .map { val item = it[0].item

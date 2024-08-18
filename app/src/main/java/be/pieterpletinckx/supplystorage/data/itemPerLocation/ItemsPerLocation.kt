@@ -1,10 +1,11 @@
-package be.pieterpletinckx.supplystorage.data.ItemsPerLocation
+package be.pieterpletinckx.supplystorage.data.itemPerLocation
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Number of times and Item is contained in a specific location
+ * ItemPerLocation is a physical object that is an Item stored in a Location
+ * Has a 1 to N relationship with both Item and Location, whilst adding the field quanity
  */
 @Entity(tableName = "items_per_location")
 data class ItemsPerLocation(
