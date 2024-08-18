@@ -33,17 +33,11 @@ import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 fun LocationsEntryList(
     modifier: Modifier = Modifier,
     availableLocations: List<Location>,
-    onValueChange: (ItemsPerLocation) -> Unit = {},
+    onValueChange: (List<ItemsPerLocationDetails>) -> Unit = {},
     createOnStart: Boolean = false
 ) {
     var createStorage by remember { mutableStateOf(createOnStart) }
-    var addRow by remember { mutableStateOf(0) }
-//    var itemsPerLocations by remember { mutableStateListOf<ItemsPerLocation>()}
-    data class ItemsPerLocationDetails(
-        val locationFkId: Int? = 0,
-        val itemId: Int? = 0,
-        val quantity: String = "",
-    )
+
     val rows = remember { mutableStateListOf<ItemsPerLocationDetails>(ItemsPerLocationDetails())}
     Column() {
         for (i in 0..<rows.size) {
@@ -58,11 +52,17 @@ fun LocationsEntryList(
                         .weight(3f)
                         .padding(3.dp),
                     availableLocations = availableLocations,
-                    onValueChange = { rows[i] = row.copy(locationFkId = it.locationId) }
+                    onValueChange = {
+                        rows[i] = row.copy(locationFkId = it.locationId)
+                        onValueChange(rows.toList())
+                    }
                 )
                 OutlinedTextField(
                     value = rows[i].quantity.toString(),
-                    onValueChange = { rows[i] = row.copy(quantity = it)},
+                    onValueChange = {
+                        rows[i] = row.copy(quantity = it)
+                        onValueChange(rows.toList())
+                    },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     label = { Text(stringResource(R.string.quantity_symbol)) },
                     colors = OutlinedTextFieldDefaults.colors(

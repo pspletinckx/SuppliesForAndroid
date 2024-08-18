@@ -66,6 +66,7 @@ import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsUiState
 import be.pieterpletinckx.supplystorage.ui.item.ItemDetailsViewModel
 import be.pieterpletinckx.supplystorage.ui.item.formatedPrice
 import be.pieterpletinckx.supplystorage.ui.item.toItem
+import be.pieterpletinckx.supplystorage.ui.location.ItemsPerLocationDetails
 import be.pieterpletinckx.supplystorage.ui.navigation.NavigationDestination
 import be.pieterpletinckx.supplystorage.ui.theme.InventoryTheme
 import kotlinx.coroutines.launch
@@ -280,7 +281,7 @@ fun ItemDetailsScreenPreview() {
         ItemDetailsBody(
             ItemDetailsUiState(
                 outOfStock = true,
-                itemDetails = ItemDetails(1, "Pen", "$100", "10", "Office")
+                itemDetails = ItemDetails(1, "Pen", "$100", "10", listOf(ItemsPerLocationDetails()))
         ), onSellItem = {}, onDelete = {})
     }
 }

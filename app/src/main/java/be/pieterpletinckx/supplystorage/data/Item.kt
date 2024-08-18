@@ -31,5 +31,4 @@ data class Item(
     val price: Double,
     val quantity: Int,
     val category: String,
-//    @Embedded val locations: List<Location>? // locations
 )

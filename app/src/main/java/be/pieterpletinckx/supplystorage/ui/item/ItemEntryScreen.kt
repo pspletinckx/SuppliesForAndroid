@@ -209,7 +209,7 @@ fun ItemInputForm(
         )
         LocationsEntryList(
             availableLocations = availableLocations,
-            onValueChange = {}
+            onValueChange = { onValueChange(itemDetails.copy(location = it)) }
         )
         if (enabled) {
             Text(
@@ -225,7 +225,7 @@ fun ItemInputForm(
 private fun ItemEntryScreenPreview() {
     InventoryTheme {
         ItemEntryBody(
-            itemUiState = ItemUiState(ItemDetails(name = "Item name", price = "10.00", quantity = "5")),
+            itemUiState = ItemUiState(ItemDetails(name = "Item name", price = "10.00")),
             onItemValueChange = {},
             onSaveClick = {},
             availableLocations = listOf(Location(10, "Kitchen", image="image of an Apple"))

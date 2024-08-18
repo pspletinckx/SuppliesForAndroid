@@ -25,6 +25,7 @@ import be.pieterpletinckx.supplystorage.data.Item
 import be.pieterpletinckx.supplystorage.data.ItemsRepository
 import be.pieterpletinckx.supplystorage.data.Location
 import be.pieterpletinckx.supplystorage.data.LocationRepository
+import be.pieterpletinckx.supplystorage.ui.location.ItemsPerLocationDetails
 import be.pieterpletinckx.supplystorage.ui.search.SearchUiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -75,7 +76,7 @@ class ItemEntryViewModel(private val itemsRepository: ItemsRepository, private v
 
     private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
         return with(uiState) {
-            name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
+            name.isNotBlank() && price.isNotBlank() && category.isNotBlank() && location.isNotEmpty()
         }
     }
 }
@@ -92,9 +93,8 @@ data class ItemDetails(
     val id: Int = 0,
     val name: String = "",
     val price: String = "",
-    val quantity: String = "",
     val category: String = "",
-    val location: String = "",
+    val location: List<ItemsPerLocationDetails> = listOf(),
 )
 
 /**
@@ -106,8 +106,8 @@ fun ItemDetails.toItem(): Item = Item(
     itemId = id,
     name = name,
     price = price.toDoubleOrNull() ?: 0.0,
-    quantity = quantity.toIntOrNull() ?: 0,
-    category = category
+    category = category,
+    quantity = 0 // TODO aggregate
 )
 
 fun Item.formatedPrice(): String {
@@ -129,6 +129,6 @@ fun Item.toItemDetails(): ItemDetails = ItemDetails(
     id = itemId,
     name = name,
     price = price.toString(),
-    quantity = quantity.toString(),
+//    quantity = quantity.toString(),
     category = category
 )
