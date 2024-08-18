@@ -70,12 +70,6 @@ class ItemDetailsViewModel(
                             locationFkId = location.location.locationId,
                             locationName = location.location.locationName,
                             quantity = location.itemsPerLocation.quantity.toString()) }
-
-//            val id: Int = 0,
-//            val name: String = "",
-//            val price: String = "",
-//            val category: String = "",
-//            val location: List<ItemsPerLocationDetails> = listOf(),
                 )) //
         }.stateIn(
             scope = viewModelScope,

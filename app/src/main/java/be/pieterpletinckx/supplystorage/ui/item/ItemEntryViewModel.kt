@@ -115,7 +115,7 @@ fun ItemDetails.toItem(): Item = Item(
     name = name,
     price = price.toDoubleOrNull() ?: 0.0,
     category = category,
-    quantity = 0 // TODO aggregate
+    quantity = location.map { it.quantity.toIntOrNull()?:0 }.sum()
 )
 
 fun ItemDetails.toItemsPerLocations(): List<ItemsPerLocation> {
