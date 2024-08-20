@@ -2,6 +2,8 @@ package be.pieterpletinckx.supplystorage.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import be.pieterpletinckx.supplystorage.data.Datasource
+import be.pieterpletinckx.supplystorage.data.category.CategoryRepository
 import be.pieterpletinckx.supplystorage.data.item.Item
 import be.pieterpletinckx.supplystorage.data.item.ItemsRepository
 import be.pieterpletinckx.supplystorage.ui.home.HomeUiState
@@ -13,7 +15,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-class SearchViewModel (itemsRepository: ItemsRepository) : ViewModel() {
+class SearchViewModel (itemsRepository: ItemsRepository, categoryRepository: CategoryRepository) : ViewModel() {
 
     /**
      * Holds home ui state. The list of items are retrieved from [ItemsRepository] and mapped to
@@ -40,6 +42,13 @@ class SearchViewModel (itemsRepository: ItemsRepository) : ViewModel() {
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
             initialValue = SearchUiState()
+        )
+
+    val categoryUiState = categoryRepository.getCategories()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+            initialValue = Datasource().loadCategories()
         )
 
     fun onSearchTextChange(text: String) {

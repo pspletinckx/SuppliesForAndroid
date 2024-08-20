@@ -17,12 +17,21 @@
 package be.pieterpletinckx.supplystorage.data
 
 import android.content.Context
+import be.pieterpletinckx.supplystorage.data.category.CategoryApiService
+import be.pieterpletinckx.supplystorage.data.category.CategoryCachedRepository
+import be.pieterpletinckx.supplystorage.data.category.CategoryDatabaseRepository
+import be.pieterpletinckx.supplystorage.data.category.CategoryNetworkRepository
+import be.pieterpletinckx.supplystorage.data.category.CategoryRepository
 import be.pieterpletinckx.supplystorage.data.item.ItemsRepository
 import be.pieterpletinckx.supplystorage.data.item.OfflineItemsRepository
 import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemsPerLocationConcreteRepository
 import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemsPerLocationRepository
 import be.pieterpletinckx.supplystorage.data.location.LocationConcreteRepository
 import be.pieterpletinckx.supplystorage.data.location.LocationRepository
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.json.Json
+import retrofit2.Retrofit
+import okhttp3.MediaType.Companion.toMediaType
 
 /**
  * App container for Dependency injection.
@@ -31,6 +40,7 @@ interface AppContainer {
     val itemsRepository: ItemsRepository
     val locationRepository: LocationRepository
     val itemsPerLocationRepository: ItemsPerLocationRepository
+    val categoryRepository: CategoryRepository
 }
 
 /**
@@ -50,5 +60,22 @@ class AppDataContainer(private val context: Context) : AppContainer {
 
     override val itemsPerLocationRepository: ItemsPerLocationRepository by lazy {
         ItemsPerLocationConcreteRepository(InventoryDatabase.getDatabase(context).itemsPerLocationDao())
+    }
+
+    override val categoryRepository: CategoryRepository by lazy {
+        val retrofit: Retrofit = Retrofit.Builder()
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .baseUrl("https://supplystorage.pieterpletinckx.be/")
+            .build()
+
+        val retrofitService: CategoryApiService by lazy {
+            retrofit.create(CategoryApiService::class.java)
+        }
+
+        CategoryNetworkRepository(retrofitService)
+
+//        CategoryCachedRepository(
+//            fastCategoryRepository = CategoryDatabaseRepository(InventoryDatabase.getDatabase(context).categoryDao()),
+//            slowCategoryRepository = CategoryNetworkRepository(retrofitService))
     }
 }

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp") version "1.9.20-1.0.14"
     id("org.jetbrains.dokka") version "1.9.20"
+    kotlin("plugin.serialization") version "1.9.10"
 }
 
 tasks.dokkaHtml {
@@ -75,6 +76,15 @@ dependencies {
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.retrofit)
+    implementation(libs.converter.scalars)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp)
+    implementation(libs.mockwebserver)
+    implementation(libs.coil.compose)
+    implementation(libs.jetbrains.kotlinx.serialization.json)
+    testImplementation(libs.mockwebserver)
 
     ksp(libs.androidx.room.compiler)
 

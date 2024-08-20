@@ -65,7 +65,10 @@ object AppViewModelProvider {
         }
 
         initializer {
-            SearchViewModel(inventoryApplication().container.itemsRepository)
+            SearchViewModel(
+                inventoryApplication().container.itemsRepository,
+                inventoryApplication().container.categoryRepository
+            )
         }
         initializer {
             LocationEntryViewModel(

@@ -1,6 +1,7 @@
 package be.pieterpletinckx.supplystorage.data
 
 import be.pieterpletinckx.supplystorage.R
+import be.pieterpletinckx.supplystorage.data.category.Category
 
 /**
  * Serves as the datasource for Category
@@ -8,12 +9,12 @@ import be.pieterpletinckx.supplystorage.R
 class Datasource() {
     fun loadCategories(): List<Category>{
         return listOf<Category>(
-            Category("Drinks", R.drawable.category_drinks_cocktail),
-            Category("Food", R.drawable.category_food_canned),
-            Category("Cleaning", R.drawable.category_cleaning_spray_soap),
-            Category("Bath", R.drawable.category_bath_zen),
-            Category("Cooking",R.drawable.category_cooking_pans),
-            Category("Electronics", R.drawable.category_electronics_pc),
+            Category(name = "Drinks", image = R.drawable.category_drinks_cocktail),
+            Category(name ="Food", image = R.drawable.category_food_canned),
+            Category(name ="Cleaning", image = R.drawable.category_cleaning_spray_soap),
+            Category(name ="Bath", image = R.drawable.category_bath_zen),
+            Category(name ="Cooking",image = R.drawable.category_cooking_pans),
+            Category(name ="Electronics", image = R.drawable.category_electronics_pc),
         )
     }
 }

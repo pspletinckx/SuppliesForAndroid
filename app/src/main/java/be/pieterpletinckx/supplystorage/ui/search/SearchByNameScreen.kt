@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material.icons.Icons
@@ -22,9 +23,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -32,8 +30,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.R
 import be.pieterpletinckx.supplystorage.data.Datasource
+import be.pieterpletinckx.supplystorage.data.category.Category
 import be.pieterpletinckx.supplystorage.data.item.Item
 import be.pieterpletinckx.supplystorage.ui.AppViewModelProvider
 import be.pieterpletinckx.supplystorage.ui.category.CategoryList
@@ -61,10 +61,17 @@ fun SearchByNameScreen(
     val searchUiState by viewModel.searchUiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val searchText by viewModel.searchText.collectAsState()
+    val categories by viewModel.categoryUiState.collectAsState()
 
     Scaffold (
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
+            InventoryTopAppBar(
+                title = "",
+                canNavigateBack = false,
+                scrollBehavior = scrollBehavior,
+                modifier = modifier.height(0.dp)
+            )
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -86,6 +93,7 @@ fun SearchByNameScreen(
         SearchByName(
             searchUiState.itemList,
             searchText,
+            categories = categories,
             onItemClick = navigateToItemUpdate,
             onItemSearch = viewModel::onSearchTextChange,
             modifier = modifier.fillMaxSize(),
@@ -104,6 +112,7 @@ fun SearchByName(
     onItemSearch: (String) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
+    categories: List<Category>
 ){
     Column (
         modifier = modifier
@@ -127,7 +136,7 @@ fun SearchByName(
         if(searchTerm.isNotBlank()) {
             HomeBody(itemList, onItemClick = onItemClick)
         } else {
-            CategoryList(affirmationList = Datasource().loadCategories(),
+            CategoryList(affirmationList = categories,
                 onClick = onItemSearch)
         }
     }
@@ -145,7 +154,8 @@ fun nameNoInputSearch(
             ),
             "",
             onItemClick = {},
-            onItemSearch = {}
+            onItemSearch = {},
+            categories = Datasource().loadCategories()
         )
     }
 }
@@ -163,7 +173,8 @@ fun nameInputSearch(
             ),
             "G",
             onItemClick = {},
-            onItemSearch = {}
+            onItemSearch = {},
+            categories = Datasource().loadCategories()
         )
     }
 }

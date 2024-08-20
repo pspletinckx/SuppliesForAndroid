@@ -20,6 +20,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import be.pieterpletinckx.supplystorage.data.category.Category
+import be.pieterpletinckx.supplystorage.data.category.CategoryDao
 import be.pieterpletinckx.supplystorage.data.item.Item
 import be.pieterpletinckx.supplystorage.data.item.ItemDao
 import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemsPerLocation
@@ -30,12 +32,13 @@ import be.pieterpletinckx.supplystorage.data.location.LocationDao
 /**
  * Database class with a singleton Instance object.
  */
-@Database(entities = [Item::class, ItemsPerLocation::class, Location::class], version = 10, exportSchema = false)
+@Database(entities = [Item::class, ItemsPerLocation::class, Location::class, Category::class], version = 12, exportSchema = false)
 abstract class InventoryDatabase : RoomDatabase() {
 
     abstract fun itemDao(): ItemDao
     abstract fun locationDao(): LocationDao
     abstract fun itemsPerLocationDao(): ItemsPerLocationDao
+    abstract fun categoryDao(): CategoryDao
 
     companion object {
         @Volatile
