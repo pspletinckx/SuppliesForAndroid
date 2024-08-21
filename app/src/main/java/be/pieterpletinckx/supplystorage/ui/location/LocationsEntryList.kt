@@ -37,8 +37,8 @@ fun LocationsEntryList(
     createOnStart: Boolean = false
 ) {
     var createStorage by remember { mutableStateOf(createOnStart) }
-
     val rows = remember { mutableStateListOf<ItemsPerLocationDetails>(ItemsPerLocationDetails())}
+
     Column() {
         for (i in 0..<rows.size) {
             var row = rows[i]
@@ -50,7 +50,8 @@ fun LocationsEntryList(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(3f)
-                        .padding(3.dp),
+                        .padding(top = 3.dp, bottom = 3.dp)
+                        .padding(end = 3.dp),
                     availableLocations = availableLocations,
                     onValueChange = {
                         rows[i] = row.copy(locationFkId = it.locationId)
@@ -73,7 +74,8 @@ fun LocationsEntryList(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
-                        .padding(3.dp),
+                        .padding(top = 3.dp, bottom = 3.dp)
+                        .padding(start = 3.dp),
                     singleLine = true
                 )
             }
@@ -104,7 +106,10 @@ fun LocationsEntryList(
                 Text(text = stringResource(R.string.location_create_new))
             }
             Button(
-                onClick = { rows.add(ItemsPerLocationDetails()) },
+                onClick = {
+                    rows.add(ItemsPerLocationDetails())
+                    onValueChange(rows.toList())
+                },
                 shape = MaterialTheme.shapes.small,
                 modifier = modifier
                     .fillMaxWidth()

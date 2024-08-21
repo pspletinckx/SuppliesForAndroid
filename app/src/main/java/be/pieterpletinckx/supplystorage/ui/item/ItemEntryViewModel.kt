@@ -83,7 +83,12 @@ class ItemEntryViewModel(
 
     private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
         return with(uiState) {
-            name.isNotBlank() && price.isNotBlank() && category.isNotBlank() && locations.isNotEmpty()
+                    name.isNotBlank() &&
+                    price.isNotBlank() &&
+                    category.isNotBlank() &&
+                    locations.isNotEmpty() &&
+                    !locations.any { it.quantity.toIntOrNull() == null } &&
+                    !locations.any { it.locationFkId == 0 }
         }
     }
 }
@@ -114,12 +119,12 @@ fun ItemDetails.toItem(): Item = Item(
     name = name,
     price = price.toDoubleOrNull() ?: 0.0,
     category = category,
-    quantity = locations.map { it.quantity.toIntOrNull()?:0 }.sum()
+    quantity = locations.map { it.quantity.toIntOrNull() ?: 0 }.sum()
 )
 
 fun ItemDetails.toItemsPerLocations(): List<ItemsPerLocation> {
     val templateItem = ItemsPerLocation(itemId = id, locationFkId = 0, quantity = 0)
-    return  locations.map {
+    return locations.map {
         templateItem.copy(
             locationFkId = it.locationFkId ?: 0,
             quantity = it.quantity.toIntOrNull() ?: 0

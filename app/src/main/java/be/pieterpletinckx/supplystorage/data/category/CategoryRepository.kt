@@ -1,15 +1,9 @@
 package be.pieterpletinckx.supplystorage.data.category
 
 import android.util.Log
-import coil.network.HttpException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flatMap
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import java.io.IOException
@@ -39,6 +33,9 @@ class CategoryCachedRepository(
         slowCategoryRepository.getCategories()
             .catch { e ->
                 if (e !is IOException) Log.e("Category", e.message!!)
+                if(e is retrofit2.HttpException) {
+                    Log.e("Category", e.message())
+                }
             }
             .map {
                 fastCategoryRepository.insertCategories(it)
