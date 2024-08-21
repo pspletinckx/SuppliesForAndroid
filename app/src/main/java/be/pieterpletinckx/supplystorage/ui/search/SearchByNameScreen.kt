@@ -1,5 +1,9 @@
 package be.pieterpletinckx.supplystorage.ui.search
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -120,6 +124,12 @@ fun SearchByName(
         modifier = modifier
             .padding(20.dp)
             .padding(top = 40.dp)
+            .animateContentSize(
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessMedium
+                )
+            )
 //                verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
         OutlinedTextField(
@@ -143,12 +153,17 @@ fun SearchByName(
                 )
             }
         )
-        if(searchTerm.isNotBlank()) {
+        AnimatedVisibility(visible = searchTerm.isNotBlank()){
             HomeBody(itemList, onItemClick = onItemClick)
-        } else {
-            CategoryList(affirmationList = categories,
-                onClick = onItemSearch)
         }
+        CategoryList(affirmationList = categories, onClick = onItemSearch)
+
+//        if(searchTerm.isNotBlank()) {
+//            HomeBody(itemList, onItemClick = onItemClick)
+//        } else {
+//            CategoryList(affirmationList = categories,
+//                onClick = onItemSearch)
+//        }
     }
 }
 @Preview(showBackground = true)
