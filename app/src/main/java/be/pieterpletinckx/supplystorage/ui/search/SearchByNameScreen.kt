@@ -1,5 +1,6 @@
 package be.pieterpletinckx.supplystorage.ui.search
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -131,7 +133,15 @@ fun SearchByName(
             ),
             modifier = Modifier.fillMaxWidth(),
             enabled = true,
-            singleLine = true
+            singleLine = true,
+            trailingIcon = {
+                Icon(Icons.Default.Clear,
+                    contentDescription = "clear text",
+                    modifier = Modifier.clickable(
+                        onClick = {onItemSearch("")}
+                    )
+                )
+            }
         )
         if(searchTerm.isNotBlank()) {
             HomeBody(itemList, onItemClick = onItemClick)
