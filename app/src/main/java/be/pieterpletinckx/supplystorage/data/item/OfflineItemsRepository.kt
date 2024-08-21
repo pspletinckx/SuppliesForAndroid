@@ -17,6 +17,7 @@
 package be.pieterpletinckx.supplystorage.data.item
 
 import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemPerLocationRel
+import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemsPerLocation
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -28,7 +29,7 @@ class OfflineItemsRepository(private val itemDao: ItemDao) : ItemsRepository {
 
     override fun getItemStream(id: Int): Flow<Item?> = itemDao.getItem(id)
 
-    override fun getLocationItemsPerLocation(id: Int): Flow<List<ItemPerLocationRel>> = itemDao.getLocationItemsPerLocation(id)
+    override fun getItemsPerLocationByItem(id: Int): Flow<List<ItemPerLocationRel>> = itemDao.getLocationItemsPerLocation(id)
 
     override suspend fun insertItem(item: Item): Long = itemDao.insert(item)
 

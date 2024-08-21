@@ -20,6 +20,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import be.pieterpletinckx.supplystorage.data.item.ItemsRepository
+import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemsPerLocation
+import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemsPerLocationRepository
 import be.pieterpletinckx.supplystorage.ui.location.ItemsPerLocationDetails
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -33,6 +35,7 @@ import kotlinx.coroutines.launch
 class ItemDetailsViewModel(
     savedStateHandle: SavedStateHandle,
     private val itemsRepository: ItemsRepository,
+    private val itemsPerLocationRepository: ItemsPerLocationRepository
 ) : ViewModel() {
 
     private val itemId: Int = checkNotNull(savedStateHandle[ItemDetailsDestination.itemIdArg])
@@ -41,7 +44,7 @@ class ItemDetailsViewModel(
      * Holds the item details ui state. The data is retrieved from [ItemsRepository] and mapped to
      * the UI state.
      */
-    val uiState: StateFlow<ItemDetailsUiState> = itemsRepository.getLocationItemsPerLocation(itemId)
+    val uiState: StateFlow<ItemDetailsUiState> = itemsPerLocationRepository.getItemsPerLocationByItem(itemId)
 //        .filterNotNull()
         .map { val item = it[0].item
             ItemDetailsUiState(
@@ -54,6 +57,7 @@ class ItemDetailsViewModel(
                     locations = it.map { location -> ItemsPerLocationDetails(
                             locationFkId = location.location.locationId,
                             locationName = location.location.locationName,
+                            itemLocationCrossRefId = location.itemsPerLocation.itemLocationCrossRefId,
                             quantity = location.itemsPerLocation.quantity.toString()) }
                 )) //
         }.stateIn(
@@ -65,12 +69,33 @@ class ItemDetailsViewModel(
     /**
      * Reduces the item quantity by one and update the [ItemsRepository]'s data source.
      */
-    fun reduceQuantityByOne() {
+    fun reduceQuantityByOne(itemsPerLocationDetails: ItemsPerLocationDetails) {
         viewModelScope.launch {
-            val currentItem = uiState.value.itemDetails.toItem()
-            if (currentItem.quantity > 0) {
-                itemsRepository.updateItem(currentItem.copy(quantity = currentItem.quantity - 1))
+            val itemsPerLocation = ItemsPerLocation(
+                itemLocationCrossRefId = itemsPerLocationDetails.itemLocationCrossRefId?: 0,
+                itemId = uiState.value.itemDetails.toItem().itemId,
+                locationFkId = itemsPerLocationDetails.locationFkId ?: 0,
+                quantity = itemsPerLocationDetails.quantity.toIntOrNull() ?: 0
+            )
+            if(itemsPerLocation.quantity > 0) {
+                itemsPerLocationRepository.updateItem(itemsPerLocation.copy(
+                    quantity = itemsPerLocation.quantity - 1)
+                )
             }
+        }
+    }
+
+    fun increaseQuantityByOne(itemsPerLocationDetails: ItemsPerLocationDetails) {
+        viewModelScope.launch {
+            val itemsPerLocation = ItemsPerLocation(
+                itemLocationCrossRefId = itemsPerLocationDetails.itemLocationCrossRefId?: 0,
+                itemId = uiState.value.itemDetails.toItem().itemId,
+                locationFkId = itemsPerLocationDetails.locationFkId ?: 0,
+                quantity = itemsPerLocationDetails.quantity.toIntOrNull() ?: 0
+            )
+            itemsPerLocationRepository.updateItem(itemsPerLocation.copy(
+                quantity = itemsPerLocation.quantity + 1)
+            )
         }
     }
 

@@ -48,5 +48,5 @@ interface ItemsRepository {
      */
     suspend fun updateItem(item: Item)
 
-    fun getLocationItemsPerLocation(id: Int): Flow<List<ItemPerLocationRel>>
+    fun getItemsPerLocationByItem(id: Int): Flow<List<ItemPerLocationRel>>
 }

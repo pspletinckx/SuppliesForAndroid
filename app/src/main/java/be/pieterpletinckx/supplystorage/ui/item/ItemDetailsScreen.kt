@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -57,6 +58,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import be.pieterpletinckx.supplystorage.InventoryTopAppBar
 import be.pieterpletinckx.supplystorage.R
@@ -115,7 +117,8 @@ fun ItemDetailsScreen(
     ) { innerPadding ->
         ItemDetailsBody(
             itemDetailsUiState = uiState.value,
-            onSellItem = { viewModel.reduceQuantityByOne() },
+            onConsumeItem = { viewModel.reduceQuantityByOne(it) },
+            onRestockItem = { viewModel.increaseQuantityByOne(it) },
             onDelete = {
                 // Note: If the user rotates the screen very fast, the operation may get cancelled
                 // and the item may not be deleted from the Database. This is because when config
@@ -140,7 +143,8 @@ fun ItemDetailsScreen(
 @Composable
 private fun ItemDetailsBody(
     itemDetailsUiState: ItemDetailsUiState,
-    onSellItem: () -> Unit,
+    onConsumeItem: (ItemsPerLocationDetails) -> Unit,
+    onRestockItem: (ItemsPerLocationDetails) -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -153,17 +157,47 @@ private fun ItemDetailsBody(
             item = itemDetailsUiState.itemDetails.toItem(), modifier = Modifier.fillMaxWidth()
         )
         for(itemsPerLocation in itemDetailsUiState.itemDetails.locations) {
-            Text(text = itemsPerLocation.locationName + " " + itemsPerLocation.quantity)
+            Row {
+//                Text(text = itemsPerLocation.locationName + " " + itemsPerLocation.quantity)
+                Button(
+                    onClick = {onConsumeItem(itemsPerLocation)},
+                    modifier = Modifier.fillMaxWidth().padding(3.dp).weight(1f),
+                    shape = MaterialTheme.shapes.small,
+//                    enabled = !itemDetailsUiState.outOfStock,
+                ) {
+                    Text(text = "-")
+                }
+                OutlinedButton(
+                    onClick = {onConsumeItem(itemsPerLocation)},
+                    modifier = Modifier.fillMaxWidth().padding(3.dp).weight(4f),
+                    shape = MaterialTheme.shapes.small,
+//                    enabled = !itemDetailsUiState.outOfStock
+                ) {
+                    Text(itemsPerLocation.locationName + " " + itemsPerLocation.quantity)
+                }
+                Button(
+                    onClick = {onRestockItem(itemsPerLocation)},
+                    modifier = Modifier.fillMaxWidth().padding(3.dp)
+                        .weight(1f),
+                    shape = MaterialTheme.shapes.small,
+//                    enabled = !itemDetailsUiState.outOfStock,
+
+                    ) {
+                    Icon(Icons.Default.Add,
+                        contentDescription = "clear text",
+                    )
+                }
+            }
         }
 
-        Button(
-            onClick = onSellItem,
-            modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.small,
-            enabled = !itemDetailsUiState.outOfStock
-        ) {
-            Text(stringResource(R.string.sell))
-        }
+//        Button(
+//            onClick = onSellItem,
+//            modifier = Modifier.fillMaxWidth(),
+//            shape = MaterialTheme.shapes.small,
+//            enabled = !itemDetailsUiState.outOfStock
+//        ) {
+//            Text(stringResource(R.string.sell))
+//        }
         OutlinedButton(
             onClick = { deleteConfirmationRequired = true },
             shape = MaterialTheme.shapes.small,
@@ -288,6 +322,6 @@ fun ItemDetailsScreenPreview() {
                     ItemsPerLocationDetails(locationName = "Kitchen", quantity = "4"),
                     ItemsPerLocationDetails(locationName = "Freezer", quantity = "9")
                 ))
-        ), onSellItem = {}, onDelete = {})
+        ), onConsumeItem = {}, onRestockItem = {}, onDelete = {})
     }
 }

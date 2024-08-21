@@ -6,9 +6,6 @@ import kotlinx.coroutines.flow.Flow
  * Interface for ItemsPerLocation as DInjected in the UI
  */
 interface ItemsPerLocationRepository {
-    fun getAllItemsStream(): Flow<List<ItemsPerLocation>>
-
-    fun getItemStream(id: Int): Flow<ItemsPerLocation?>
 
     suspend fun insertItem(item: ItemsPerLocation)
 
@@ -17,4 +14,10 @@ interface ItemsPerLocationRepository {
     suspend fun deleteItem(item: ItemsPerLocation)
 
     suspend fun updateItem(item: ItemsPerLocation)
+
+    fun getAllItemsStream(): Flow<List<ItemsPerLocation>>
+
+    fun getItemsPerLocationByLocation(locationId: Int): Flow<ItemPerLocationRel>
+
+    fun getItemsPerLocationByItem(itemId: Int): Flow<List<ItemPerLocationRel>>
 }
