@@ -72,10 +72,10 @@ class AppDataContainer(private val context: Context) : AppContainer {
             retrofit.create(CategoryApiService::class.java)
         }
 
-        CategoryNetworkRepository(retrofitService)
+//        CategoryNetworkRepository(retrofitService)
 
-//        CategoryCachedRepository(
-//            fastCategoryRepository = CategoryDatabaseRepository(InventoryDatabase.getDatabase(context).categoryDao()),
-//            slowCategoryRepository = CategoryNetworkRepository(retrofitService))
+        CategoryCachedRepository(
+            fastCategoryRepository = CategoryDatabaseRepository(InventoryDatabase.getDatabase(context).categoryDao()),
+            slowCategoryRepository = CategoryNetworkRepository(retrofitService))
     }
 }

@@ -13,8 +13,7 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = "category")
 @Serializable
 data class Category(
-    @PrimaryKey(autoGenerate = true)
-    val categoryId: Int = 0,
+    @PrimaryKey
     val name: String,
     @DrawableRes val image: Int= 0,
     @SerialName(value = "imageUrl")

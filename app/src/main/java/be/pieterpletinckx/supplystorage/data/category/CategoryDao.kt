@@ -14,11 +14,11 @@ interface CategoryDao {
     @Query("SELECT * from category ORDER BY name ASC")
     fun getAllCategories(): Flow<List<Category>>
 
-    @Query("SELECT * from category WHERE categoryId = :id")
-    fun getCategory(id: Int): Flow<Category>
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(category: Category) : Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(category: List<Category>) : List<Long>
 
     @Update
     suspend fun update(category: Category)
@@ -29,7 +29,6 @@ interface CategoryDao {
     @Delete
     suspend fun delete(category: Category)
 
-//    @Transaction
-//    @Query("SELECT * FROM items_per_location WHERE itemId = :id")
-//    fun getLocationItemsPerLocation(id: Int): Flow<List<ItemPerLocationRel>>
+    @Query("DELETE FROM category")
+    suspend fun deleteAll()
 }

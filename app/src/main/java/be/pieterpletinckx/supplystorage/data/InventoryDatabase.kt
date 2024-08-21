@@ -32,7 +32,7 @@ import be.pieterpletinckx.supplystorage.data.location.LocationDao
 /**
  * Database class with a singleton Instance object.
  */
-@Database(entities = [Item::class, ItemsPerLocation::class, Location::class, Category::class], version = 12, exportSchema = false)
+@Database(entities = [Item::class, ItemsPerLocation::class, Location::class, Category::class], version = 13, exportSchema = false)
 abstract class InventoryDatabase : RoomDatabase() {
 
     abstract fun itemDao(): ItemDao
