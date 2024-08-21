@@ -213,7 +213,7 @@ class ItemDaoTest {
             )
         )
 
-        val allItemsPerLocations = itemDao.getLocationItemsPerLocation(1).first()
+        val allItemsPerLocations = itemDao.getItemsPerLocationByItem(1).first()
 
         val debugString =
             "Locations: " + allItemsPerLocations.map { it.location.locationId }.fastJoinToString() +
@@ -263,7 +263,7 @@ class ItemDaoTest {
             )
         )
 
-        val allItemsPerLocations = itemDao.getLocationItemsPerLocation(1).first()
+        val allItemsPerLocations = itemDao.getItemsPerLocationByItem(1).first()
 
         val debugString =
             "Locations: " + allItemsPerLocations.map { it.location.locationId }.fastJoinToString() +

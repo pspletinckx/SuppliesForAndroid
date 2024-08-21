@@ -33,10 +33,10 @@ import kotlinx.coroutines.flow.Flow
 interface ItemDao {
 
     @Query("SELECT * from items ORDER BY name ASC")
-    fun getAllItems(): Flow<List<Item>>
+    fun getAllItems(): Flow<List<ItemWithQuanities>>
 
     @Query("SELECT * from items WHERE itemId = :id")
-    fun getItem(id: Int): Flow<Item>
+    fun getItem(id: Int): Flow<ItemWithQuanities>
 
     // Specify the conflict strategy as IGNORE, when the user tries to add an
     // existing Item into the database Room ignores the conflict.
@@ -51,5 +51,9 @@ interface ItemDao {
 
     @Transaction
     @Query("SELECT * FROM items_per_location WHERE itemId = :id")
-    fun getLocationItemsPerLocation(id: Int): Flow<List<ItemPerLocationRel>>
+    fun getItemsPerLocationByItem(id: Int): Flow<List<ItemPerLocationRel>>
+
+    @Transaction
+    @Query("SELECT * FROM items_per_location")
+    fun getItemsPerLocation(): Flow<List<ItemPerLocationRel>>
 }

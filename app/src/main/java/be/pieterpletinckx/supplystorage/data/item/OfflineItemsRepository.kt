@@ -17,19 +17,27 @@
 package be.pieterpletinckx.supplystorage.data.item
 
 import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemPerLocationRel
-import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemsPerLocation
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
- * Concrete
+ * Concrete Item repo
  */
 class OfflineItemsRepository(private val itemDao: ItemDao) : ItemsRepository {
 
     override fun getAllItemsStream(): Flow<List<Item>> = itemDao.getAllItems()
+            .map { itemRelationList -> itemRelationList
+                .map{ itemRelation -> itemRelation.item.copy(
+                    quantity = itemRelation.itemsPerLocation.sumOf { it.quantity }
+                )}
+            }
 
     override fun getItemStream(id: Int): Flow<Item?> = itemDao.getItem(id)
+        .map{ itemRelation -> itemRelation.item.copy(
+            quantity = itemRelation.itemsPerLocation.sumOf { it.quantity }
+        )}
 
-    override fun getItemsPerLocationByItem(id: Int): Flow<List<ItemPerLocationRel>> = itemDao.getLocationItemsPerLocation(id)
+    override fun getItemsPerLocationByItem(id: Int): Flow<List<ItemPerLocationRel>> = itemDao.getItemsPerLocationByItem(id)
 
     override suspend fun insertItem(item: Item): Long = itemDao.insert(item)
 
