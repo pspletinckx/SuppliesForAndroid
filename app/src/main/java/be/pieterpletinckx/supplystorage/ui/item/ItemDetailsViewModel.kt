@@ -25,6 +25,8 @@ import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemsPerLocationRep
 import be.pieterpletinckx.supplystorage.ui.location.ItemsPerLocationDetails
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -45,7 +47,8 @@ class ItemDetailsViewModel(
      * the UI state.
      */
     val uiState: StateFlow<ItemDetailsUiState> = itemsPerLocationRepository.getItemsPerLocationByItem(itemId)
-//        .filterNotNull()
+        .filterNotNull()
+        .filter { it.size > 0 }
         .map { val item = it[0].item
             ItemDetailsUiState(
                 outOfStock = it.map { it.itemsPerLocation.quantity }.sum() <= 0, // boolean
@@ -103,7 +106,16 @@ class ItemDetailsViewModel(
      * Deletes the item from the [ItemsRepository]'s data source.
      */
     suspend fun deleteItem() {
+        uiState.value.itemDetails.locations.forEach { itemsPerLocationDetails ->
+            itemsPerLocationRepository.deleteItem(ItemsPerLocation(
+                itemLocationCrossRefId = itemsPerLocationDetails.itemLocationCrossRefId?: 0,
+                itemId = uiState.value.itemDetails.toItem().itemId,
+                locationFkId = itemsPerLocationDetails.locationFkId ?: 0,
+                quantity = itemsPerLocationDetails.quantity.toIntOrNull() ?: 0
+            ))
+        }
         itemsRepository.deleteItem(uiState.value.itemDetails.toItem())
+
     }
 
     companion object {
