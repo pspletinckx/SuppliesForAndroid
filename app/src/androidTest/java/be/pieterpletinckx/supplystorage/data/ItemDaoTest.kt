@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package be.pieterpletinckx.supplystorage
+package be.pieterpletinckx.supplystorage.data
 
 import android.content.Context
 import androidx.compose.ui.util.fastJoinToString
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import be.pieterpletinckx.supplystorage.data.InventoryDatabase
 import be.pieterpletinckx.supplystorage.data.item.Item
 import be.pieterpletinckx.supplystorage.data.item.ItemDao
 import be.pieterpletinckx.supplystorage.data.itemPerLocation.ItemsPerLocation
